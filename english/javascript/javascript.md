@@ -1,6 +1,8 @@
-# JS notes
+# JavaScript
 
-Notes includes the most important paragraphs from open-source JS tutorial from this [link](https://github.com/javascript-tutorial/en.javascript.info) and other topics that have interested me
+**Created:** 10.02.2021, **last updated:** 11.02.2021
+
+Notes includes the most important paragraphs from open-source JS tutorial from this [link](https://github.com/javascript-tutorial/en.javascript.info) and other topics that have interested me.
 
 ## An introduction
 
@@ -49,7 +51,7 @@ Other pages that reference the same script will take it from the cache instead o
 
 That reduces traffic and makes pages faster.
 
-### Question mark operator
+### Question mark operator "?"
 
 **Single "?":**
 
@@ -72,6 +74,34 @@ let message = (age < 3) ? 'Hi, baby!' :
 4. If that’s true – it returns `'Greetings!'`. Otherwise, it continues to the expression after the last colon ‘":"’, returning `'What an unusual age!'`.
 
 **Non-traditional use of "?": we can also do some portion of code instead of assigning a variable.**
+
+### ? vs &&
+
+```jsx
+InputProps={name === 'password' ? {
+                    endAdornment: (
+                        <InputAdornment position="end">
+                            <IconButton onClick={handleShowPassword}>
+                                {type === "password" ? <Visibility/> : <VisibilityOff/>}
+                            </IconButton>
+                        </InputAdornment>
+                    )
+                } : null }
+```
+
+no need to use " : null"
+
+```jsx
+InputProps={name === 'password' && {
+                    endAdornment: (
+                        <InputAdornment position="end">
+                            <IconButton onClick={handleShowPassword}>
+                                {type === "password" ? <Visibility/> : <VisibilityOff/>}
+                            </IconButton>
+                        </InputAdornment>
+                    )
+                }}
+```
 
 ### Nullish coalescing operator '??'
 
@@ -102,7 +132,7 @@ let func = (arg1, arg2, ..., argN) => expression
 
 - alike in Visual Studio
 
-![images/Untitled.png](images/Untitled.png)
+![javascript/Untitled.png](javascript/Untitled.png)
 
 - **F8:** “**Resume**”: continue the execution, hotkey.
 - **F9:** “**Step**”: run the next command, hotkey.
@@ -120,7 +150,7 @@ That’s handy when we want to move multiple steps forward to the line, but we�
 
 ### Suggested rules
 
-![images/Untitled%201.png](images/Untitled%201.png)
+![javascript/Untitled%201.png](javascript/Untitled%201.png)
 
 ### Avoid nesting:
 
@@ -346,3 +376,9 @@ A promise is asynchronous callback. However, Promises are more than just callbac
 **What is the point of promises?**
 
 - providing a direct correspondence between synchronous functions and asynchronous functions.
+
+to be continued..
+
+## Credits:
+
+[https://github.com/javascript-tutorial/en.javascript.info](https://github.com/javascript-tutorial/en.javascript.info)
