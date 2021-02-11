@@ -132,7 +132,7 @@ let func = (arg1, arg2, ..., argN) => expression
 
 - alike in Visual Studio
 
-![javascript/Untitled.png](javascript/Untitled.png)
+![images/Untitled.png](javascript/Untitled.png)
 
 - **F8:** “**Resume**”: continue the execution, hotkey.
 - **F9:** “**Step**”: run the next command, hotkey.
@@ -150,7 +150,7 @@ That’s handy when we want to move multiple steps forward to the line, but we�
 
 ### Suggested rules
 
-![javascript/Untitled%201.png](javascript/Untitled%201.png)
+![images/Untitled%201.png](javascript/Untitled%201.png)
 
 ### Avoid nesting:
 
