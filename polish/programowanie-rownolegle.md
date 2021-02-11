@@ -1,5 +1,4 @@
-# Opracowanie na egzamin:
-
+# Programowanie równoległe
 ## 1. Przetwarzanie współbieżne, równoległe i rozproszone – charakterystyka, różnice
 
 ### Rodzaje:
@@ -60,7 +59,7 @@ Następnie proces potomny wywołuje **execl (**jedną z potomnych exec - powiaza
 
 ## 3. Wątki Pthreads – tworzenie, niszczenie, zarządzanie; przykłady tworzenia i przesyłania argumentów do wątków
 
-uzup. z skryptu
+- do uzupełnienia
 
 ## 4. Współbieżność: wyścig (race condition, data race), sposoby unikania – różne rodzaje synchronizacji
 
