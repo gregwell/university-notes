@@ -1,8 +1,10 @@
 # JavaScript
 
-**Created:** 10.02.2021, **last updated:** 11.02.2021
+**Created:** 10.02.2021, **last updated:** 12.02.2021
 
-Notes includes the most important paragraphs from open-source JS tutorial from this [link](https://github.com/javascript-tutorial/en.javascript.info) and other topics that have interested me.
+Notes includes the most important paragraphs from open-source JS tutorial from this [link](https://github.com/javascript-tutorial/en.javascript.info): quite a lot of basics, the usage of promises and all other stuff that have interested me.
+
+# Fundamentals
 
 ## An introduction
 
@@ -124,6 +126,37 @@ can be shortened as follow:
 
 ```jsx
 let func = (arg1, arg2, ..., argN) => expression
+```
+
+**Example:**
+
+```jsx
+loadScript("/article/promise-chaining/one.js")
+  .then(function(script) {
+    return loadScript("/article/promise-chaining/two.js");
+  })
+  .then(function(script) {
+    return loadScript("/article/promise-chaining/three.js");
+  })
+  .then(function(script) {
+    // use functions declared in scripts
+    // to show that they indeed loaded
+    one();
+    two();
+    three();
+  });
+```
+
+```jsx
+loadScript("/article/promise-chaining/one.js")
+  .then(script => loadScript("/article/promise-chaining/two.js"))
+  .then(script => loadScript("/article/promise-chaining/three.js"))
+  .then(script => {
+    // scripts are loaded, we can use functions declared there
+    one();
+    two();
+    three();
+  });
 ```
 
 ## Code quality
@@ -357,27 +390,375 @@ The specification describes explicitly which operator uses which hint. There are
 
 - [here](https://javascript.info/array-methods#summary)
 
-## Handling asynchronous tasks
+# Handling asynchronous tasks
 
-### Promises
+## Callbacks
 
-A **callback** is a function that we call inside another function.
+### Callback-based:
 
-A promise is asynchronous callback. However, Promises are more than just callbacks. They are a very mighty abstraction, allow cleaner and better, functional code with less error-prone boilerplate.
+- a function that does something asynchronously (for instance loading a scrypt) should provide a callback argument where we put the function to run after it's complete
 
-- **promises** are objects representing the result of a **single (asynchronous) computation.**
-- **promises** implement an observer pattern.
-    - you don't have to know the callback that will use the value before the task completes
-    - instead of expecting callbacks as arguments to your functions you can easily `return` a Promise object
-    - the promise will store the value, and you can transparently add a callback whenever you want, it wil be called when the result is available.
-    - "Transparency" implies that when you have a promise and add a callback to it, it doesn't make a difference to your code whether the result has arrived yet - the API and contracts are the same, simplifying caching/memoisation a lot.
-    - you can add multiple callbacks easily
+```jsx
+function loadScript(src, callback) {
+  let script = document.createElement('script');
+  script.src = src;
+  script.onload = () => callback(script);
+  document.head.append(script);
+}
 
-**What is the point of promises?**
+loadScript('https://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.2.0/lodash.js', script => {
+  alert(`Cool, the script ${script.src} is loaded`);
+  alert( _ ); // function declared in the loaded script
+});
+```
 
-- providing a direct correspondence between synchronous functions and asynchronous functions.
+### Callback in callback: loading two script sequentially
 
-to be continued..
+- after the outer loadScript is complete, the callback initiates the inner one.
+
+```jsx
+loadScript('/my/script.js', function(script) {
+
+  alert(`Cool, the ${script.src} is loaded, let's load one more`);
+
+  loadScript('/my/script2.js', function(script) {
+    alert(`Cool, the second script is loaded`);
+  });
+
+});
+```
+
+- that is fine for few actions, but not good for many
+- we are not considering any errors
+
+### Handling errors
+
+```jsx
+function loadScript(src, callback) {
+  let script = document.createElement('script');
+  script.src = src;
+
+  script.onload = () => callback(null, script);
+  script.onerror = () => callback(new Error(`Script load error for ${src}`));
+
+  document.head.append(script);
+}
+```
+
+- It calls `callback(null, script)` for successful load and `callback(error)` otherwise.
+
+**"Error-first callback" style:**
+
+```jsx
+loadScript('/my/script.js', function(error, script) {
+  if (error) {
+    // handle error
+  } else {
+    // script loaded successfully
+  }
+});
+```
+
+The convention is:
+
+1. The first argument of the `callback` is reserved for an error if it occurs. Then `callback(err)` is called.
+2. The second argument (and the next ones if needed) are for the successful result. Then `callback(null, result1, result2…)` is called.
+
+So the single callback function is used both for reporting errors and passing back results.
+
+### Pyramid of doom
+
+```jsx
+loadScript('1.js', function(error, script) {
+
+  if (error) {
+    handleError(error);
+  } else {
+    // ...
+    loadScript('2.js', function(error, script) {
+      if (error) {
+        handleError(error);
+      } else {
+        // ...
+        loadScript('3.js', function(error, script) {
+          if (error) {
+            handleError(error);
+          } else {
+            // ...continue after all scripts are loaded (*)
+          }
+        });
+
+      }
+    });
+  }
+});
+```
+
+- As calls become more nested, the code becomes deeper and increasingly more difficult to manage, especially if we have real code instead of ... that may include more loops, conditional statements and so on.
+
+```jsx
+loadScript('1.js', step1);
+
+function step1(error, script) {
+  if (error) {
+    handleError(error);
+  } else {
+    // ...
+    loadScript('2.js', step2);
+  }
+}
+
+function step2(error, script) {
+  if (error) {
+    handleError(error);
+  } else {
+    // ...
+    loadScript('3.js', step3);
+  }
+}
+
+function step3(error, script) {
+  if (error) {
+    handleError(error);
+  } else {
+    // ...continue after all scripts are loaded (*)
+  }
+}
+```
+
+- It does the same, and there’s no deep nesting now because we made every action a separate top-level function.
+- The problem is that it is difficult to read, moreover **all of these functions are single use,** created only to avoid the "pyramid of doom".
+- We’d like to have something better... one of the best ways is to use "promises"
+
+## Promises
+
+### How does it work
+
+1. A “producing code” that does something and takes time.
+2. A “consuming code” that wants the result of the “producing code” once it’s ready.
+3. The “producing code” takes whatever time it needs to produce the promised result, and the “promise”(a special JavaScript object that links the “producing code” and the “consuming code” together.) makes that result available to all of the subscribed code when it’s ready.
+
+```jsx
+let promise = new Promise(function(resolve, reject) {
+  // executor (the producing code, "singer")
+});
+```
+
+**function -** is called **"executor**" - our code is inside it
+
+**resolve** and **reject -** are callbacks provided by JavaScript itself
+
+### Promise action flow
+
+1. Executing **new Promise. (**Creating promise object)
+2. Executor runs automatically, obtains the result (doesn't matter when) and calls one of the callbacks:
+    1. Scenario 1. Job successful: calling **resolve(`value`) -** with result **`value`**
+    2. Scenario 2. An error occurred: calling **reject(`error`) -**  with the **`error`** object
+3. **new Promise constructor** returns the **promise** object. The newly created object has these properties:
+    1. `state` - initially "**pending**" 
+        1. when resolve is called changes to "**fulfilled**"
+        2. when reject is called changes to "**rejected**"
+    2. `result` - initially `undefined`
+        1. when resolve is called changes to `value` (the argument)
+        2. when reject is called changes to `error` (the argument)
+
+### Rules
+
+- the executor should call only one resolve or one reject. **Any state change is final.**
+- the resolve/reject expect only one argument (or none).
+- it's recommended to use `Error` objects as return argument from **reject.**
+- technically, we can **resolve** or **reject** immediately - that's fine
+- **the properties `state` and `result` are internal - we cal only access them by .then, .catch, .finally**
+
+### Consumers
+
+- consuming functions can be registered using methods .then, .catch, .finally
+- **if the promise is pending handlers wait for it, when has already settled they just run.**
+
+### Consumers: .then
+
+```jsx
+promise.then(
+  function(result) { /* handle a successful result */ },
+  function(error) { /* handle an error */ }
+);
+```
+
+- the first argument is a function that runs when the promise is resolved and receives the result, the second argument when the promise is rejected and received the error.
+
+```jsx
+let promise = new Promise(function(resolve, reject) {
+  setTimeout(() => resolve("done!"), 1000);
+});
+
+// resolve runs the first function in .then
+promise.then(
+  result => alert(result), // shows "done!" after 1 second
+  error => alert(error) // doesn't run
+);
+```
+
+- we can provide only one function argument, for instance:
+
+```jsx
+let promise = new Promise(resolve => {
+  setTimeout(() => resolve("done!"), 1000);
+});
+
+promise.then(alert); // shows "done!" after 1 second
+```
+
+### Consumers: .catch
+
+If we're interested only in errors, then we can:
+
+1. Possibility one: use `null` as the first argument in **.then**
+
+    ```jsx
+    .then(null, errorHandlingFunction)
+    ```
+
+2. Possibility two: use **.catch**
+
+    ```jsx
+    .catch(alert);
+    ```
+
+### Consumers: .finally
+
+- **always runs when the promise is settled (**resolved or rejected - doesn't matter)
+- it's a good handler for performing cleanup, e.g. **stopping loading indicators,** as they are not needed anymore, **no matter what the outcome is.**
+- .finally **has no arguments** - we don't know whether the promise is successful or not. That makes it ideal to perform "general" finalizing procedures.
+- is not meant to process a promise result so it **passes through results and errors to the next handler e.g:**
+
+    ```jsx
+    new Promise((resolve, reject) => {
+      setTimeout(() => resolve("result"), 2000)
+    })
+      .finally(() => alert("Promise ready"))
+      .then(result => alert(result)); // <-- .then handles the result
+    ```
+
+    ```jsx
+    new Promise((resolve, reject) => {
+      throw new Error("error");
+    })
+      .finally(() => alert("Promise ready"))
+      .catch(err => alert(err));  // <-- .catch handles the error object
+    ```
+
+### Example:
+
+Callback-powered:
+
+```jsx
+function loadScript(src, callback) {
+  let script = document.createElement('script');
+  script.src = src;
+
+  script.onload = () => callback(null, script);
+  script.onerror = () => callback(new Error(`Script load error for ${src}`));
+
+  document.head.append(script);
+}
+```
+
+Promise-powered:
+
+```jsx
+function loadScript(src) {
+  return new Promise(function(resolve, reject) {
+    let script = document.createElement('script');
+    script.src = src;
+
+    script.onload = () => resolve(script);
+    script.onerror = () => reject(new Error(`Script load error for ${src}`));
+
+    document.head.append(script);
+  });
+}
+```
+
+- **The outer code can add handlers (subscribing functions) to it using .then:**
+
+```jsx
+let promise = loadScript("https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.11/lodash.js");
+
+promise.then(
+  script => alert(`${script.src} is loaded!`),
+  error => alert(`Error: ${error.message}`)
+);
+
+promise.then(script => alert('Another handler...'));
+```
+
+### Few more words..
+
+- **promises are more than just callbacks.** They are a very mighty abstraction, allow cleaner and better, functional code with less error-prone boilerplate.
+    - **promises allow us to do things in the natural order, first we run loadScript(script), and .then we write what to do with the result.** When using callbacks we must know what to do with the result before loadScript is called.
+    - **we can call .then on a promise as many times as we want.** Each time we're adding a new "fan", a new subscribing function, to the "subscription list". When using callback we don't have this possibility - we can have only one callback.
+- the main idea behind promises is providing a direct correspondence between synchronous functions and asynchronous functions.
+- promises are objects representing the result of a single (asynchronous) computation.
+- promises ****implement an observer pattern.
+- instead of expecting callbacks as arguments to your functions you can easily `return` a Promise object
+- the promise will store the value, and you can transparently add a callback whenever you want, it will be called when the result is available.
+- "Transparency" implies that when you have a promise and add a callback to it, it doesn't make a difference to your code whether the result has arrived yet - the API and contracts are the same, simplifying caching/memoisation a lot.
+- you can add multiple callbacks easily
+
+### Promises chaining
+
+- the idea is that the **result** is passed through the chain of **.then** handlers.
+- the whole thing works, because a call to promise**.then** returns a promise, so that we can call the next .then on it.
+- technically we can also add many **.then** to a single promise. **This is not chaining.** They don’t pass the result to each other; instead they process it independently. In practice we rarely need multiple handlers for one promise. **Chaining is used much more often.**
+
+**Example:**
+
+```jsx
+function loadScript(src) {
+  return new Promise(function(resolve, reject) {
+    let script = document.createElement('script');
+    script.src = src;
+
+    script.onload = () => resolve(script);
+    script.onerror = () => reject(new Error(`Script load error for ${src}`));
+
+    document.head.append(script);
+  });
+}
+```
+
+**chaining:**
+
+```jsx
+loadScript("/article/promise-chaining/one.js")
+  .then(function(script) {
+    return loadScript("/article/promise-chaining/two.js");
+  })
+  .then(function(script) {
+    return loadScript("/article/promise-chaining/three.js");
+  })
+  .then(function(script) {
+    // use functions declared in scripts
+    // to show that they indeed loaded
+    one();
+    two();
+    three();
+  });
+```
+
+**simplifying the code with arrow functions:**
+
+```jsx
+loadScript("/article/promise-chaining/one.js")
+  .then(script => loadScript("/article/promise-chaining/two.js"))
+  .then(script => loadScript("/article/promise-chaining/three.js"))
+  .then(script => {
+    // scripts are loaded, we can use functions declared there
+    one();
+    two();
+    three();
+  });
+```
 
 ## Credits:
 
