@@ -1,109 +1,32 @@
 # JavaScript
 
-**Created:** 10.02.2021, **last updated:** 11.02.2021
+**Created:** 10.02.2021, **last updated:** 13.02.2021
 
-Notes includes the most important paragraphs from open-source JS tutorial from this [link](https://github.com/javascript-tutorial/en.javascript.info) and other topics that have interested me.
+Notes includes the most important paragraphs from open-source JS tutorial from this [link](https://github.com/javascript-tutorial/en.javascript.info): quite a lot of basics, the usage of promises and all other stuff that have interested me.
+
+# Fundamentals
 
 ## An introduction
 
-JavaScript can execute not only in the browser, but also on the server, or actually on any device that has a special program called the JavaScript engine.
+- JavaScript can execute in the browser, on the server, or on any device that has JavaScript engine (browser has an embedded engine)
+- engines have their own "codenames" (V8 - Chrome, SpiderMonkey - Firefox)
+- engine workflow:
+    1. **parse**: read the script
+    2. **compile:** convert to the machine language
+    3. **run:** the compiled code runs
+- scripts should be stored in separate files, then the browser will downloads it and store it in its cache; other pages that reference the same script will take it from the cache instead of downloading it, this makes pages faster.
 
-The browser has an embedded engine sometimes called a “JavaScript virtual machine”.
-
-### **Different engines have different “codenames”**. For example:
-
-- [V8](https://en.wikipedia.org/wiki/V8_(JavaScript_engine)) – in Chrome and Opera.
-- [SpiderMonkey](https://en.wikipedia.org/wiki/SpiderMonkey) – in Firefox.
-- …There are other codenames like “Chakra” for IE, “ChakraCore” for Microsoft Edge, “Nitro” and “SquirrelFish” for Safari, etc.
-
-For instance, if **“a feature X is supported by V8”, then it probably works in Chrome and Opera**.
-
-### **How do engines work?**
-
-Engines are complicated. But the basics are easy.
-
-1. The engine (embedded if it’s a browser) reads (“parses”) the script.
-2. Then it converts (“compiles”) the script to the machine language.
-3. And then the machine code runs, pretty fast.
-
-### **In-browser JavaScript is able to:**
-
-- Add new HTML to the page, change the existing content, modify styles.
-- React to user actions, run on mouse clicks, pointer movements, key presses.
-- Send requests over the network to remote servers, download and upload files (so-called [AJAX](https://en.wikipedia.org/wiki/Ajax_(programming)) and [COMET](https://en.wikipedia.org/wiki/Comet_(programming)) technologies).
-- Get and set cookies, ask questions to the visitor, show messages.
-- Remember the data on the client-side (“local storage”).
-
-### **What CAN’T in-browser JavaScript do?**
-
-- JavaScript on a webpage may not read/write arbitrary files on the hard disk, copy them or execute programs. It has no direct access to OS functions. Modern browsers allow it to work with files, but the access is limited and only provided if the user does certain actions, like “dropping” a file into a browser window or selecting it via an <input> tag.
-- Different tabs/windows generally do not know about each other. Sometimes they do, for example when one window uses JavaScript to open the other one. But even in this case, JavaScript from one page may not access the other if they come from different sites (from a different domain, protocol or port).
-
-Such limits do not exist if JavaScript is used outside of the browser, for example on a server. Modern browsers also allow plugin/extensions which may ask for extended permissions.
-
-### **Why shouldn't you put scripts into HTML**
-
-As a rule, only the simplest scripts are put into HTML. More complex ones reside in separate files.
-
-The benefit of a separate file is that the browser will download it and store it in its [cache](https://en.wikipedia.org/wiki/Web_cache).
-
-Other pages that reference the same script will take it from the cache instead of downloading it, so the file is actually downloaded only once.
-
-That reduces traffic and makes pages faster.
-
-### Question mark operator "?"
+### "?": Conditional "ternary" operator
 
 **Single "?":**
 
-`let result = condition ? value1 : value2;`
+`let result = condition ? valueIfTrue : valueIfFalse;`
 
 **Multiple "?" (not "??")**
 
-The condition is evaluated: if it’s truthy then value1 is returned, otherwise – value2.
+`let result = cond1 ? valueIfTrue : condIfCond1IsFalse ? valueIfTrue : valueIfFalse;`
 
-```jsx
-let message = (age < 3) ? 'Hi, baby!' :
-  (age < 18) ? 'Hello!' :
-  (age < 100) ? 'Greetings!' :
-  'What an unusual age!';
-```
-
-1. The first question mark checks whether `age < 3`.
-2. If true – it returns `'Hi, baby!'`. Otherwise, it continues to the expression after the colon ‘":"’, checking `age < 18`.
-3. If that’s true – it returns `'Hello!'`. Otherwise, it continues to the expression after the next colon ‘":"’, checking `age < 100`.
-4. If that’s true – it returns `'Greetings!'`. Otherwise, it continues to the expression after the last colon ‘":"’, returning `'What an unusual age!'`.
-
-**Non-traditional use of "?": we can also do some portion of code instead of assigning a variable.**
-
-### ? vs &&
-
-```jsx
-InputProps={name === 'password' ? {
-                    endAdornment: (
-                        <InputAdornment position="end">
-                            <IconButton onClick={handleShowPassword}>
-                                {type === "password" ? <Visibility/> : <VisibilityOff/>}
-                            </IconButton>
-                        </InputAdornment>
-                    )
-                } : null }
-```
-
-no need to use " : null"
-
-```jsx
-InputProps={name === 'password' && {
-                    endAdornment: (
-                        <InputAdornment position="end">
-                            <IconButton onClick={handleShowPassword}>
-                                {type === "password" ? <Visibility/> : <VisibilityOff/>}
-                            </IconButton>
-                        </InputAdornment>
-                    )
-                }}
-```
-
-### Nullish coalescing operator '??'
+### "??"Nullish coalescing operator
 
 The result of `a ?? b` is:
 
@@ -112,15 +35,11 @@ The result of `a ?? b` is:
 
 ### Arrow functions
 
-The code like below:
-
 ```jsx
 let func = function(arg1, arg2, ..., argN) {
   return expression;
 };
 ```
-
-can be shortened as follow:
 
 ```jsx
 let func = (arg1, arg2, ..., argN) => expression
@@ -128,11 +47,7 @@ let func = (arg1, arg2, ..., argN) => expression
 
 ## Code quality
 
-### Breakpoints in Chrome
-
-- alike in Visual Studio
-
-![javascript/Untitled.png](javascript/Untitled.png)
+### Debugging in Chrome
 
 - **F8:** “**Resume**”: continue the execution, hotkey.
 - **F9:** “**Step**”: run the next command, hotkey.
@@ -141,18 +56,11 @@ let func = (arg1, arg2, ..., argN) => expression
 - **Shift+F11:** Continue the execution and stop it at the very last line of the current function. That’s handy when we accidentally entered a nested call using "Step", but it does not interest us, and we want to continue to its end as soon as possible.
 - **no hotkey -** enable/disable all breakpoints
 - **no hotkey** – enable/disable automatic pause in case of an error.
-
-### **Continue to here**
-
-Right click on a line of code opens the context menu with a great option called “Continue to here”.
-
-That’s handy when we want to move multiple steps forward to the line, but we’re too lazy to set a breakpoint.
-
-### Suggested rules
-
-![javascript/Untitled%201.png](javascript/Untitled%201.png)
+- **right click on a line of code - "**continue tu here" -handy when we want to move multiple steps forward to the line, but we’re too lazy to set a breakpoint.
 
 ### Avoid nesting:
+
+**Example:**
 
 ```jsx
 function pow(x, n) {
@@ -189,35 +97,12 @@ function pow(x, n) {
 }
 ```
 
-### Automated Linters
-
-Linters are tools that can automatically check the style of your code and make improving suggestions.
-
-Example: ESLint
-
-### Good and bad comments
-
-**Comment this:**
-
-- Overall architecture, high-level view.
-- Function usage.
-- Important solutions, especially when not immediately obvious.
-
-**Avoid comments:**
-
-- That tell “how code works” and “what it does”.
-- Put them in only if it’s impossible to make the code so simple and self-descriptive that it doesn’t require them.
-
-### Testing
-
-- [more info](https://javascript.info/testing-mocha)
-
 ## Objects
 
 ### Accessing a property
 
 - The dot notation: `obj.property`.
-- Square brackets notation `obj["property"]`. Square brackets allow to take the key from a variable, like `obj[varWithKey]`.
+- Square brackets notation `obj["property"]`.
 
 ### Cloning objects
 
@@ -357,27 +242,455 @@ The specification describes explicitly which operator uses which hint. There are
 
 - [here](https://javascript.info/array-methods#summary)
 
-## Handling asynchronous tasks
+# Handling asynchronous tasks
 
-### Promises
+## Callbacks
 
-A **callback** is a function that we call inside another function.
+### Callback-based:
 
-A promise is asynchronous callback. However, Promises are more than just callbacks. They are a very mighty abstraction, allow cleaner and better, functional code with less error-prone boilerplate.
+- a function that does something asynchronously (for instance loading a scrypt) should provide a callback argument where we put the function to run after it's complete
 
-- **promises** are objects representing the result of a **single (asynchronous) computation.**
-- **promises** implement an observer pattern.
-    - you don't have to know the callback that will use the value before the task completes
-    - instead of expecting callbacks as arguments to your functions you can easily `return` a Promise object
-    - the promise will store the value, and you can transparently add a callback whenever you want, it wil be called when the result is available.
-    - "Transparency" implies that when you have a promise and add a callback to it, it doesn't make a difference to your code whether the result has arrived yet - the API and contracts are the same, simplifying caching/memoisation a lot.
-    - you can add multiple callbacks easily
+```jsx
+function loadScript(src, callback) {
+  let script = document.createElement('script');
+  script.src = src;
+  script.onload = () => callback(script);
+  document.head.append(script);
+}
 
-**What is the point of promises?**
+loadScript('https://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.2.0/lodash.js', script => {
+  alert(`Cool, the script ${script.src} is loaded`);
+  alert( _ ); // function declared in the loaded script
+});
+```
 
-- providing a direct correspondence between synchronous functions and asynchronous functions.
+### Callback in callback: loading two script sequentially
 
-to be continued..
+- after the outer loadScript is complete, the callback initiates the inner one.
+
+```jsx
+loadScript('/my/script.js', function(script) {
+
+  alert(`Cool, the ${script.src} is loaded, let's load one more`);
+
+  loadScript('/my/script2.js', function(script) {
+    alert(`Cool, the second script is loaded`);
+  });
+
+});
+```
+
+- that is fine for few actions, but not good for many
+- we are not considering any errors
+
+### Handling errors
+
+```jsx
+function loadScript(src, callback) {
+  let script = document.createElement('script');
+  script.src = src;
+
+  script.onload = () => callback(null, script);
+  script.onerror = () => callback(new Error(`Script load error for ${src}`));
+
+  document.head.append(script);
+}
+```
+
+- It calls `callback(null, script)` for successful load and `callback(error)` otherwise.
+
+**"Error-first callback" style:**
+
+```jsx
+loadScript('/my/script.js', function(error, script) {
+  if (error) {
+    // handle error
+  } else {
+    // script loaded successfully
+  }
+});
+```
+
+The convention is:
+
+1. The first argument of the `callback` is reserved for an error if it occurs. Then `callback(err)` is called.
+2. The second argument (and the next ones if needed) are for the successful result. Then `callback(null, result1, result2…)` is called.
+
+So the single callback function is used both for reporting errors and passing back results.
+
+### Pyramid of doom
+
+```jsx
+loadScript('1.js', function(error, script) {
+
+  if (error) {
+    handleError(error);
+  } else {
+    // ...
+    loadScript('2.js', function(error, script) {
+      if (error) {
+        handleError(error);
+      } else {
+        // ...
+        loadScript('3.js', function(error, script) {
+          if (error) {
+            handleError(error);
+          } else {
+            // ...continue after all scripts are loaded (*)
+          }
+        });
+
+      }
+    });
+  }
+});
+```
+
+- As calls become more nested, the code becomes deeper and increasingly more difficult to manage, especially if we have real code instead of ... that may include more loops, conditional statements and so on.
+
+```jsx
+loadScript('1.js', step1);
+
+function step1(error, script) {
+  if (error) {
+    handleError(error);
+  } else {
+    // ...
+    loadScript('2.js', step2);
+  }
+}
+
+function step2(error, script) {
+  if (error) {
+    handleError(error);
+  } else {
+    // ...
+    loadScript('3.js', step3);
+  }
+}
+
+function step3(error, script) {
+  if (error) {
+    handleError(error);
+  } else {
+    // ...continue after all scripts are loaded (*)
+  }
+}
+```
+
+- It does the same, and there’s no deep nesting now because we made every action a separate top-level function.
+- The problem is that it is difficult to read, moreover **all of these functions are single use,** created only to avoid the "pyramid of doom".
+- We’d like to have something better... one of the best ways is to use "promises"
+
+## Promises
+
+### How does it work
+
+1. A “producing code” that does something and takes time.
+2. A “consuming code” that wants the result of the “producing code” once it’s ready.
+3. The “producing code” takes whatever time it needs to produce the promised result, and the “promise”(a special JavaScript object that links the “producing code” and the “consuming code” together.) makes that result available to all of the subscribed code when it’s ready.
+
+```jsx
+let promise = new Promise(function(resolve, reject) {
+  // executor (the producing code, "singer")
+});
+```
+
+**function -** is called **"executor**" - our code is inside it
+
+**resolve** and **reject -** are callbacks provided by JavaScript itself
+
+### Promise action flow
+
+1. Executing **new Promise. (**Creating promise object)
+2. Executor runs automatically, obtains the result (doesn't matter when) and calls one of the callbacks:
+    1. Scenario 1. Job successful: calling **resolve(`value`) -** with result **`value`**
+    2. Scenario 2. An error occurred: calling **reject(`error`) -**  with the **`error`** object
+3. **new Promise constructor** returns the **promise** object. The newly created object has these properties:
+    1. `state` - initially "**pending**" 
+        1. when resolve is called changes to "**fulfilled**"
+        2. when reject is called changes to "**rejected**"
+    2. `result` - initially `undefined`
+        1. when resolve is called changes to `value` (the argument)
+        2. when reject is called changes to `error` (the argument)
+
+### Rules
+
+- the executor should call only one resolve or one reject. **Any state change is final.**
+- the resolve/reject expect only one argument (or none).
+- it's recommended to use `Error` objects as return argument from **reject.**
+- technically, we can **resolve** or **reject** immediately - that's fine
+- **the properties `state` and `result` are internal - we cal only access them by .then, .catch, .finally**
+
+### Consumers
+
+- consuming functions can be registered using methods .then, .catch, .finally
+- **if the promise is pending handlers wait for it, when has already settled they just run.**
+
+### Consumers: .then
+
+```jsx
+promise.then(
+  function(result) { /* handle a successful result */ },
+  function(error) { /* handle an error */ }
+);
+```
+
+- the first argument is a function that runs when the promise is resolved and receives the result, the second argument when the promise is rejected and received the error.
+
+```jsx
+let promise = new Promise(function(resolve, reject) {
+  setTimeout(() => resolve("done!"), 1000);
+});
+
+// resolve runs the first function in .then
+promise.then(
+  result => alert(result), // shows "done!" after 1 second
+  error => alert(error) // doesn't run
+);
+```
+
+- we can provide only one function argument, for instance:
+
+```jsx
+let promise = new Promise(resolve => {
+  setTimeout(() => resolve("done!"), 1000);
+});
+
+promise.then(alert); // shows "done!" after 1 second
+```
+
+### Consumers: .catch
+
+If we're interested only in errors, then we can:
+
+1. Possibility one: use `null` as the first argument in **.then**
+
+    ```jsx
+    .then(null, errorHandlingFunction)
+    ```
+
+2. Possibility two: use **.catch**
+
+    ```jsx
+    .catch(alert);
+    ```
+
+### Consumers: .finally
+
+- **always runs when the promise is settled (**resolved or rejected - doesn't matter)
+- it's a good handler for performing cleanup, e.g. **stopping loading indicators,** as they are not needed anymore, **no matter what the outcome is.**
+- .finally **has no arguments** - we don't know whether the promise is successful or not. That makes it ideal to perform "general" finalizing procedures.
+- is not meant to process a promise result so it **passes through results and errors to the next handler e.g:**
+
+    ```jsx
+    new Promise((resolve, reject) => {
+      setTimeout(() => resolve("result"), 2000)
+    })
+      .finally(() => alert("Promise ready"))
+      .then(result => alert(result)); // <-- .then handles the result
+    ```
+
+    ```jsx
+    new Promise((resolve, reject) => {
+      throw new Error("error");
+    })
+      .finally(() => alert("Promise ready"))
+      .catch(err => alert(err));  // <-- .catch handles the error object
+    ```
+
+### Example:
+
+Callback-powered:
+
+```jsx
+function loadScript(src, callback) {
+  let script = document.createElement('script');
+  script.src = src;
+
+  script.onload = () => callback(null, script);
+  script.onerror = () => callback(new Error(`Script load error for ${src}`));
+
+  document.head.append(script);
+}
+```
+
+Promise-powered:
+
+```jsx
+function loadScript(src) {
+  return new Promise(function(resolve, reject) {
+    let script = document.createElement('script');
+    script.src = src;
+
+    script.onload = () => resolve(script);
+    script.onerror = () => reject(new Error(`Script load error for ${src}`));
+
+    document.head.append(script);
+  });
+}
+```
+
+- **The outer code can add handlers (subscribing functions) to it using .then:**
+
+```jsx
+let promise = loadScript("https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.11/lodash.js");
+
+promise.then(
+  script => alert(`${script.src} is loaded!`),
+  error => alert(`Error: ${error.message}`)
+);
+
+promise.then(script => alert('Another handler...'));
+```
+
+### Few more words..
+
+- **promises are more than just callbacks.** They are a very mighty abstraction, allow cleaner and better, functional code with less error-prone boilerplate.
+    - **promises allow us to do things in the natural order, first we run loadScript(script), and .then we write what to do with the result.** When using callbacks we must know what to do with the result before loadScript is called.
+    - **we can call .then on a promise as many times as we want.** Each time we're adding a new "fan", a new subscribing function, to the "subscription list". When using callback we don't have this possibility - we can have only one callback.
+- the main idea behind promises is providing a direct correspondence between synchronous functions and asynchronous functions.
+- promises are objects representing the result of a single (asynchronous) computation.
+- promises ****implement an observer pattern.
+- instead of expecting callbacks as arguments to your functions you can easily `return` a Promise object
+- the promise will store the value, and you can transparently add a callback whenever you want, it will be called when the result is available.
+- "Transparency" implies that when you have a promise and add a callback to it, it doesn't make a difference to your code whether the result has arrived yet - the API and contracts are the same, simplifying caching/memoisation a lot.
+- you can add multiple callbacks easily
+
+### Promises chaining
+
+- the idea is that the **result** is passed through the chain of **.then** handlers.
+- the whole thing works, because a call to promise**.then** returns a promise, so that we can call the next .then on it.
+- technically we can also add many **.then** to a single promise. **This is not chaining.** They don’t pass the result to each other; instead they process it independently. In practice we rarely need multiple handlers for one promise. **Chaining is used much more often.**
+- in front-end promises are often used for network requests
+
+**Example: fetch**
+
+```jsx
+fetch('/article/promise-chaining/user.json')
+  .then(function(response) {
+    return response.text();
+  })
+  .then(function(text) {
+    alert(text); 
+  });
+```
+
+1. Fetch method makes a network request to the URL **and returns a promise.**
+2. **The promise resolves with a `response` object** when the remote server responds with headers, but **before the full response is downloaded.**
+3. When the remote server responds then the first **`.then`** runs
+4. **`.then`** calls **`response.text()`** method that returns **a promise which resolves with a `text` object** when the full text is downloaded
+5. The next `.then`**,** when receive the `text` object is simply printing it as an alert.
+
+**Doing it better:**
+
+- the response method returned from fetch also includes the method **`response.json()`**that parses the remote data as JSON. We can switch to it.
+- we can also use arrow functions for brevity
+
+```jsx
+fetch('/article/promise-chaining/user.json')
+  .then(response => response.json())
+  .then(user => alert(user.name)); 
+```
+
+**Using the user name and showing GitHub avatar:**
+
+```jsx
+fetch('/article/promise-chaining/user.json')
+  .then(response => response.json())
+  .then(user => fetch(`https://api.github.com/users/${user.name}`))
+  .then(response => response.json())
+  .then(githubUser => {
+    let img = document.createElement('img');
+    img.src = githubUser.avatar_url;
+    img.className = "promise-avatar-example";
+    document.body.append(img);
+
+    setTimeout(() => img.remove(), 3000); // (*)
+  });
+```
+
+1. Fetch makes the request for user.json
+2. Then `.then` loads it as json
+3. Then next `.then` uses fetch to fetch user data from the GitHub API.
+4. Then next `.then` loads the response as json
+5. Then next `.then` shows the avatar image for 3 seconds
+    1. Create a HTML element with the `img` tag
+    2. Set `img.src` property as `githubUser.avatar_url`
+    3. Set `img.className` as `promise-avatar-example` to apply predefined styling class.
+    4. Append this img element to the document body.
+    5. Set timeout to 3000 ms to remove this img element.
+
+**The problem:** The current chain is not extendable, it does not return a promise, so we can't do anything after the avatar has finished showing and gets removed.
+
+**The solution:** Return a promise and resolve with a value - `githubUser` object.
+
+```jsx
+fetch('/article/promise-chaining/user.json')
+  .then(response => response.json())
+  .then(user => fetch(`https://api.github.com/users/${user.name}`))
+  .then(response => response.json())
+  .then(githubUser => new Promise(function(resolve, reject) { // (*)
+    let img = document.createElement('img');
+    img.src = githubUser.avatar_url;
+    img.className = "promise-avatar-example";
+    document.body.append(img);
+
+    setTimeout(() => {
+      img.remove();
+      resolve(githubUser); // (**)
+    }, 3000);
+  }))
+  .then(githubUser => alert(`Finished showing ${githubUser.name}`));
+```
+
+1. The `.then` handler used previously to use the githubUser json data to show the image, now is used to create new promise.
+2. `resolve` the promise inside `setTimeout` function, so the new promise is settled only after the call of `resolve(githubUser)` 
+3. The next `.then` in the chain will wait for that.
+
+**The golden rule:**
+
+> As a good practice, an asynchronous action should always return a promise. That makes it possible to plan actions after it; even if we don’t plan to extend the chain now, we may need it later.
+
+**Splitting the code into reusable functions:**
+
+```jsx
+function loadJson(url) {
+  return fetch(url)
+    .then(response => response.json());
+}
+
+function loadGithubUser(name) {
+  return fetch(`https://api.github.com/users/${name}`)
+    .then(response => response.json());
+}
+
+function showAvatar(githubUser) {
+  return new Promise(function(resolve, reject) {
+    let img = document.createElement('img');
+    img.src = githubUser.avatar_url;
+    img.className = "promise-avatar-example";
+    document.body.append(img);
+
+    setTimeout(() => {
+      img.remove();
+      resolve(githubUser);
+    }, 3000);
+  });
+}
+
+// Use them:
+loadJson('/article/promise-chaining/user.json')
+  .then(user => loadGithubUser(user.name))
+  .then(showAvatar)
+  .then(githubUser => alert(`Finished showing ${githubUser.name}`));
+  // ...
+```
+
+1.  `loadJson` runs fetch method, this method returns a promise with the response, then `.then` is called and the response is loaded as json.
+2. Then user in json format is loaded as an argument to `loadGithubUser(user.name)`, then we run `fetch` method to load github user data and `.then` load it as json.
+3. `.then` showAvatar function is executed and returns a new promise, that is resolved after showing the avatar for 3 seconds.
+4. `showAvatar`is resolved with `githubUser` value(object).  `.then` uses this object to execute alert.
 
 ## Credits:
 
