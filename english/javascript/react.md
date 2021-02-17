@@ -1,6 +1,6 @@
 # React
 
-**Created:** 8.02.2021, **last updated:** 11.02.2021
+**Created:** 8.02.2021, **last update:** 17.02.2021
 
 ## React
 
@@ -95,19 +95,125 @@ Redux is a predictable state container for JavaScript apps
 - let you "hook into" React state and lifecycle features from function components
 - don't work inside classes - they let you use React without classes
 
-### State Hook
+### useState Hook
 
-- we call it inside a function component to add some local state to it
+- **we call it inside a function component to add some local state to it**
 - React will preserve this state between re-renders
-- returns a pair: the current state value and a function that lets you update it
+- returns a pair: state and setState - a function to update the state
 
-### Effect Hook
+**Functional updater form:**
+
+- we can use the **functional updater form of setState** to get rid of *false dependencies,*
+
+**Example:**
+
+```jsx
+useEffect(() => {
+    const id = setInterval(() => {
+      setCount(count + 1);
+    }, 1000);
+    return () => clearInterval(id);
+  }, [count]);
+```
+
+In this example, we don't need the count to perform `setCount(count+1)`, we just need to update the state based on the previous state. In this case we can use functional updater form: `setCount(c => c + 1);`
+
+```jsx
+useEffect(() => {
+    const id = setInterval(() => {
+      setCount(c => c + 1);    }, 1000);
+    return () => clearInterval(id);
+  }, []);
+```
+
+Why was it a false dependency? `count` was a necessary dependency because we wrote `setCount(count+1)`, but we only needed to transform it into `count+1` and send it back to React.
+
+### useReducer Hook
+
+- useful when setting a state variable depends on the current value of another state variable
+- in this case we replace both of them with useReducer
+- a reducer lets us decouple expressing the "actions" that happened in our component from how the state updates in response to them.
+
+**Example:**
+
+- in reference to the example above, we may need to use useReducer, when count state depends also from another state, for instance step state, **example:**
+
+```jsx
+function Counter() {
+  const [count, setCount] = useState(0);
+  const [step, setStep] = useState(1);
+
+  useEffect(() => {
+    const id = setInterval(() => {
+      setCount(c => c + step);
+    }, 1000);
+    return () => clearInterval(id);
+  }, [step]);
+
+  return (
+    <>
+      <h1>{count}</h1>
+      <input value={step} onChange={e => setStep(Number(e.target.value))} />
+    </>
+  );
+}
+```
+
+-traded the `step` dependency for a `dispatch` dependency in our effect.
+
+```jsx
+const [state, dispatch] = useReducer(reducer, initialState);
+const { count, step } = state;
+
+useEffect(() => {
+  const id = setInterval(() => {
+    dispatch({ type: 'tick' }); // Instead of setCount(c => c + step);
+  }, 1000);
+  return () => clearInterval(id);
+}, [dispatch]);
+```
+
+**Remember:**
+
+> React guarantees the dispatch function to be constant throughout the component lifetime.
+
+Since dispatch function is a constant we can set the interval only once.
+
+- dispatch can be omitted from the deps, but it also doesn't hurt to specify them.
+- instead of reading the state inside an effect, it dispatches an action that encodes the information about what happened.
+- our effect doesn’t care how we update the state, it just tells us about what happened
+- the reducer centralizes the update logic
+
+```jsx
+function reducer(state, action) {
+  const { count, step } = state;
+  if (action.type === 'tick') {
+    return { count: count + step, step };
+  } else if (action.type === 'step') {
+    return { count, step: action.step };
+  } else {
+    throw new Error();
+  }
+}
+```
+
+### useEffect Hook
 
 - Usual operations performed from React components: data fetching, subscriptions, manually changing the DOM are called "**side effects" (effects)** because **they can affect other components and can't be done during rendering.**
 - One of the few React built-in Hooks is **useEffect.**
 - It adds the ability to perform side effects from a function component.
-- React will remember the function you passed and call it later after performing the DOM updates. (runs after each render). **But there is a way to change it, by passing a second argument that is the array of values that the effect depends on.**
-- [a complete guide to useEffect](https://overreacted.io/a-complete-guide-to-useeffect/)
+- React will remember the function you passed and call it later after performing the DOM updates. (runs after each render). **But there is a way to change it, by passing a second argument that is the array of values that the effect depends on. (dependency array, "deps")**
+- 
+
+### Can we use Hooks instead of Redux for state management?
+
+Pros:
+
+- you can reduce boilerplate and make iterations faster
+
+Cons:
+
+- you lose out-of-the-box performance optimizations, middleware support, devtools extension, time travel debugging and a bunch of other things.
 
 ## ReactRouter
 
@@ -151,14 +257,18 @@ const isSignup = true;
 
 ## Sources
 
-### Credits
-
-### Other resources I find useful
-
-[https://stackoverflow.com/users/458193/dan-abramov](https://stackoverflow.com/users/458193/dan-abramov)
+### Credits:
 
 [https://overreacted.io/a-complete-guide-to-useeffect/](https://overreacted.io/a-complete-guide-to-useeffect/)
+
+### Other resources I find useful:
+
+[https://stackoverflow.com/users/458193/dan-abramov](https://stackoverflow.com/users/458193/dan-abramov)
 
 [https://reactjs.org/docs/thinking-in-react.html#step-3-identify-the-minimal-but-complete-representation-of-ui-state](https://reactjs.org/docs/thinking-in-react.html#step-3-identify-the-minimal-but-complete-representation-of-ui-state)
 
 [https://medium.com/@5066aman/thinking-in-react-few-tips-6b32fbe835a3](https://medium.com/@5066aman/thinking-in-react-few-tips-6b32fbe835a3)
+
+[https://github.com/markerikson/react-redux-links](https://github.com/markerikson/react-redux-links)
+
+[https://github.com/markerikson/redux-ecosystem-links](https://github.com/markerikson/redux-ecosystem-links)
