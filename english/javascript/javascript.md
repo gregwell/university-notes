@@ -1,6 +1,6 @@
 # JavaScript
 
-**Created:** 10.02.2021, **last updated:** 13.02.2021
+**Created:** 10.02.2021, **last updated:** 17.02.2021
 
 Notes includes the most important paragraphs from open-source JS tutorial from this [link](https://github.com/javascript-tutorial/en.javascript.info): quite a lot of basics, the usage of promises and all other stuff that have interested me.
 
@@ -44,6 +44,34 @@ let func = function(arg1, arg2, ..., argN) {
 ```jsx
 let func = (arg1, arg2, ..., argN) => expression
 ```
+
+### Using .map() to iterate through array items
+
+- `.map()` creates an array from calling a specific function on each item in the parent array
+- is useful for:
+1. Calling a function on each item in an array, example:
+
+```jsx
+const sweetArray = [2, 3, 4, 5, 35]
+const sweeterArray = sweetArray.map(sweetItem => {
+    return sweetItem * 2
+})
+```
+
+2. Converting a string to an array
+
+```jsx
+const name = "Sammy"
+const map = Array.prototype.map
+
+const newName = map.call(name, eachLetter => {
+    return `${eachLetter}a`
+})
+```
+
+3. Rendering lists in JavaScript libraries
+
+4. Reformatting array objects.
 
 ## Code quality
 
