@@ -1,2 +1,56 @@
 # University notes
 The repository contains a whole bunch of my old-school-style handcrafted notes, some docs-generated pdfs and a few modern written in Markdown (which can be corrected or even further developed in the future by the community with pull requests!)
+
+- ≡ƒôé __C:\\Users\\grzegurz\\VSCodeProjects\\university\-notes\\university\-notes__
+   - ≡ƒôä [README.md](README.md)
+   - ≡ƒôé __english__
+     - ≡ƒôé __java__
+       - ≡ƒôé __images__
+         - ≡ƒôä [Untitled 1.png](english/java/images/Untitled%201.png)
+         - ≡ƒôä [Untitled 2.png](english/java/images/Untitled%202.png)
+         - ≡ƒôä [Untitled 3.png](english/java/images/Untitled%203.png)
+         - ≡ƒôä [Untitled 4.png](english/java/images/Untitled%204.png)
+         - ≡ƒôä [Untitled 5.png](english/java/images/Untitled%205.png)
+         - ≡ƒôä [Untitled.png](english/java/images/Untitled.png)
+       - ≡ƒôä [javafx\-notes.md](english/java/javafx-notes.md)
+     - ≡ƒôé __javascript__
+       - ≡ƒôä [javascript.md](english/javascript/javascript.md)
+       - ≡ƒôä [react.md](english/javascript/react.md)
+     - ≡ƒôé __old\-school\-style\-notes__
+       - ≡ƒôä [computer\-networks.pdf](english/old-school-style-notes/computer-networks.pdf)
+       - ≡ƒôä [cs\-fundamentals\-graph\-theory.pdf](english/old-school-style-notes/cs-fundamentals-graph-theory.pdf)
+       - ≡ƒôä [heat\-and\-mass\-transfer\-examples.pdf](english/old-school-style-notes/heat-and-mass-transfer-examples.pdf)
+       - ≡ƒôä [heat\-and\-mass\-transfer\-theory.pdf](english/old-school-style-notes/heat-and-mass-transfer-theory.pdf)
+       - ≡ƒôä [numerical\-methods.pdf](english/old-school-style-notes/numerical-methods.pdf)
+   - ≡ƒôé __polish__
+     - ≡ƒôé __java__
+       - ≡ƒôé __images__
+         - ≡ƒôä [Untitled 1.png](polish/java/images/Untitled%201.png)
+         - ≡ƒôä [Untitled.png](polish/java/images/Untitled.png)
+       - ≡ƒôä [java.md](polish/java/java.md)
+     - ≡ƒôé __old\-school\-style\-notes__
+       - ≡ƒôä [algebra\-macierze.pdf](polish/old-school-style-notes/algebra-macierze.pdf)
+       - ≡ƒôä [algebra\-przestrzenie.pdf](polish/old-school-style-notes/algebra-przestrzenie.pdf)
+       - ≡ƒôä [algebra\-zespolone.pdf](polish/old-school-style-notes/algebra-zespolone.pdf)
+       - ≡ƒôä [analiza\-calki.pdf](polish/old-school-style-notes/analiza-calki.pdf)
+       - ≡ƒôä [analiza\-cuda\-na\-kiju.pdf](polish/old-school-style-notes/analiza-cuda-na-kiju.pdf)
+       - ≡ƒôä [analiza\-fwz.pdf](polish/old-school-style-notes/analiza-fwz.pdf)
+       - ≡ƒôä [analiza\-szeregi\-granice.pdf](polish/old-school-style-notes/analiza-szeregi-granice.pdf)
+       - ≡ƒôä [architektury\-komputerow.pdf](polish/old-school-style-notes/architektury-komputerow.pdf)
+       - ≡ƒôä [chemia.pdf](polish/old-school-style-notes/chemia.pdf)
+       - ≡ƒôä [fizyka\-drgania.pdf](polish/old-school-style-notes/fizyka-drgania.pdf)
+       - ≡ƒôä [fizyka\-dynamika.pdf](polish/old-school-style-notes/fizyka-dynamika.pdf)
+       - ≡ƒôä [fizyka\-kinematyka.pdf](polish/old-school-style-notes/fizyka-kinematyka.pdf)
+       - ≡ƒôä [fizyka2\-elektrostatyka.pdf](polish/old-school-style-notes/fizyka2-elektrostatyka.pdf)
+       - ≡ƒôä [fizyka2\-magnetyzm.pdf](polish/old-school-style-notes/fizyka2-magnetyzm.pdf)
+       - ≡ƒôä [fizyka2\-optyka.pdf](polish/old-school-style-notes/fizyka2-optyka.pdf)
+       - ≡ƒôä [fizyka2\-termodynamika.pdf](polish/old-school-style-notes/fizyka2-termodynamika.pdf)
+       - ≡ƒôä [fizyka2\-wspolczesna.pdf](polish/old-school-style-notes/fizyka2-wspolczesna.pdf)
+       - ≡ƒôä [pi\-grafy.pdf](polish/old-school-style-notes/pi-grafy.pdf)
+       - ≡ƒôä [pi\-logika.pdf](polish/old-school-style-notes/pi-logika.pdf)
+       - ≡ƒôä [podstawy\-inzynierii\-materialowej\-mapa\-mysli.jpg](polish/old-school-style-notes/podstawy-inzynierii-materialowej-mapa-mysli.jpg)
+       - ≡ƒôä [podstawy\-inzynierii\-materialowej.pdf](polish/old-school-style-notes/podstawy-inzynierii-materialowej.pdf)
+       - ≡ƒôä [rownania\-rozniczkowe.pdf](polish/old-school-style-notes/rownania-rozniczkowe.pdf)
+     - ≡ƒôä [programowanie\-rownolegle.md](polish/programowanie-rownolegle.md)
+   - ≡ƒôä [readme2.md](readme2.md)
+
