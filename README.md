@@ -1,17 +1,8 @@
 # University notes
 The repository contains a whole bunch of my old-school-style handcrafted notes, some docs-generated pdfs and a few modern written in Markdown (which can be corrected or even further developed in the future by the community with pull requests!)
 
-- __C:\\Users\\grzegurz\\VSCodeProjects\\university\-notes\\university\-notes__
-   - [README.md](README.md)
    - __english__
      - __java__
-       - __images__
-         - [Untitled 1.png](english/java/images/Untitled%201.png)
-         - [Untitled 2.png](english/java/images/Untitled%202.png)
-         - [Untitled 3.png](english/java/images/Untitled%203.png)
-         - [Untitled 4.png](english/java/images/Untitled%204.png)
-         - [Untitled 5.png](english/java/images/Untitled%205.png)
-         - [Untitled.png](english/java/images/Untitled.png)
        - [javafx\-notes.md](english/java/javafx-notes.md)
      - __javascript__
        - [javascript.md](english/javascript/javascript.md)
@@ -24,9 +15,6 @@ The repository contains a whole bunch of my old-school-style handcrafted notes, 
        - [numerical\-methods.pdf](english/old-school-style-notes/numerical-methods.pdf)
    - __polish__
      - __java__
-       - __images__
-         - [Untitled 1.png](polish/java/images/Untitled%201.png)
-         - [Untitled.png](polish/java/images/Untitled.png)
        - [java.md](polish/java/java.md)
      - __old\-school\-style\-notes__
        - [algebra\-macierze.pdf](polish/old-school-style-notes/algebra-macierze.pdf)
@@ -52,5 +40,4 @@ The repository contains a whole bunch of my old-school-style handcrafted notes, 
        - [podstawy\-inzynierii\-materialowej.pdf](polish/old-school-style-notes/podstawy-inzynierii-materialowej.pdf)
        - [rownania\-rozniczkowe.pdf](polish/old-school-style-notes/rownania-rozniczkowe.pdf)
      - [programowanie\-rownolegle.md](polish/programowanie-rownolegle.md)
-   - [readme2.md](readme2.md)
 
