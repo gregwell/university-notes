@@ -2,6 +2,7 @@
 The repository contains a whole bunch of my old-school-style handcrafted notes, some docs-generated pdfs and a few modern written in Markdown (which can be corrected or even further developed in the future by the community with pull requests!)
 
 ## File tree:
+Generated with [md-file-tree](https://github.com/michalbe/md-file-tree)
    - __english__
      - __java__
        - [javafx\-notes.md](english/java/javafx-notes.md)
@@ -15,6 +16,7 @@ The repository contains a whole bunch of my old-school-style handcrafted notes, 
        - [heat\-and\-mass\-transfer\-theory.pdf](english/old-school-style-notes/heat-and-mass-transfer-theory.pdf)
        - [numerical\-methods.pdf](english/old-school-style-notes/numerical-methods.pdf)
    - __polish__
+        - [programowanie\-rownolegle.md](polish/programowanie-rownolegle.md)
      - __java__
        - [java.md](polish/java/java.md)
      - __old\-school\-style\-notes__
@@ -40,5 +42,4 @@ The repository contains a whole bunch of my old-school-style handcrafted notes, 
        - [podstawy\-inzynierii\-materialowej\-mapa\-mysli.jpg](polish/old-school-style-notes/podstawy-inzynierii-materialowej-mapa-mysli.jpg)
        - [podstawy\-inzynierii\-materialowej.pdf](polish/old-school-style-notes/podstawy-inzynierii-materialowej.pdf)
        - [rownania\-rozniczkowe.pdf](polish/old-school-style-notes/rownania-rozniczkowe.pdf)
-     - [programowanie\-rownolegle.md](polish/programowanie-rownolegle.md)
 
