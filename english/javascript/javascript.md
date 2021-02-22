@@ -1,6 +1,6 @@
 # JavaScript
 
-**Created:** 10.02.2021, **last updated:** 17.02.2021
+**Created:** 10.02.2021, **last updated:** 22.02.2021
 
 Notes includes the most important paragraphs from open-source JS tutorial from this [link](https://github.com/javascript-tutorial/en.javascript.info): quite a lot of basics, the usage of promises and all other stuff that have interested me.
 
@@ -43,6 +43,39 @@ let func = function(arg1, arg2, ..., argN) {
 
 ```jsx
 let func = (arg1, arg2, ..., argN) => expression
+```
+
+### Tagged template literals
+
+- a more advanced form of **template literals**(string literals that allow to embed expressions in them i.e. ****`string text ${expression} string text`**).**
+- allow you to **parse template literals with a function.**
+- The tag function can then perform whatever operations on these arguments you wish, and return the manipulated string.
+
+**Example:**
+
+```jsx
+function highlight(strings, ...values) {
+   let str = '';
+   strings.forEach((string, i) => {
+       str += `${string} <span class='hl'>${values[i] || ''}</span>`;
+   });
+   return str;
+}
+```
+
+- **The first argumen**t of a tag function contains **an array of string values**.
+- **The remaining arguments** are related to the expressions. (We can use ES6 rest operator to take the rest of the values that are passed to that argument, and put them into an array for us.)
+
+```jsx
+const sentence = highlight`My dog's name is ${name} and he is ${age} years old`;
+```
+
+- we changed the template literal so any value that gets passed in gets wrapped in a <span> and we can use CSS to highlight it.
+
+```css
+.hl {
+background: #ffc600
+}
 ```
 
 ### Using .map() to iterate through array items
