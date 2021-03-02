@@ -304,7 +304,7 @@ addTodo: text => ({ setState }) => {
 ## A roadmap to show and toggle todos
 
 <p align="center">
-<img width="650" src="images/show-todos-and-allow-toggle.png">
+<img width="650" src="images/show-todos-and-allow-toggle .png">
 </p>
 
 ## Tricks and tips
