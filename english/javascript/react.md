@@ -1,6 +1,6 @@
 # React
 
-**Created:** 8.02.2021, **last update:** 17.02.2021
+**Created:** 8.02.2021, **last update:** 02.03.2021
 
 ## React
 
@@ -203,7 +203,6 @@ function reducer(state, action) {
 - One of the few React built-in Hooks is **useEffect.**
 - It adds the ability to perform side effects from a function component.
 - React will remember the function you passed and call it later after performing the DOM updates. (runs after each render). **But there is a way to change it, by passing a second argument that is the array of values that the effect depends on. (dependency array, "deps")**
-- 
 
 ### Can we use Hooks instead of Redux for state management?
 
@@ -214,6 +213,17 @@ Pros:
 Cons:
 
 - you lose out-of-the-box performance optimizations, middleware support, devtools extension, time travel debugging and a bunch of other things.
+
+### useSelector Hook
+
+- react-redux hook
+
+```jsx
+const result: any = useSelector(selector: Function, equalityFn?: Function)
+```
+
+- The `useSelector` is a hook from the react-redux package. The `useSelector` hook takes a function (selector). This function gets the entire Redux store state as a parameter and its job is to return only the state needed
+- the selector function should be [pure](https://en.wikipedia.org/wiki/Pure_function)
 
 ## ReactRouter
 
@@ -244,6 +254,58 @@ The history library lets you easily manage session history anywhere JavaScript r
 - When the current location changes, the view is re-rendered and you get a sense of navigation.
 - The `history.push` method is invoked when you click on a `<Link>` component, and `history.replace` is called when you use a `<Redirect>`
 - [more reading](https://www.sitepoint.com/react-router-complete-guide/)
+
+# React-sweet-state
+
+## How things work:
+
+### A hook without a selector
+
+- the selector in the first hook of `todoSelectors` is **`null` - i**t's because **this hook is used only to access the actions, doesn't need any data.**
+
+```
+const todoSelectors = {
+  **useTodosActions: null,**
+  useVisibleTodos: (todos, visibilityFilter) => {
+    something...
+    }
+  }
+}
+
+```
+
+- then we make use of this hook, we **ignore the first element in the array.**
+
+```
+const [, { addTodo }] = todosSelectors.useTodosActions()
+
+```
+
+- this way we get the access to the `addTodo` action:
+
+```
+addTodo: text => ({ setState }) => {
+      setState(todos => {
+        todos.push({
+          id: nextTodoId++,
+          text,
+          completed: false
+        })
+      })
+    },
+
+```
+
+### Understanding `setState`
+
+- sweet-state will handle providing the `setState` parameter behind the scenes
+- when we call `setState` it will do **a shallow merge** with what is currently in the store (example: `setState({ listName })` :`{ ...state, listName }`)
+
+## A roadmap to show and toggle todos
+
+<p align="center">
+<img width="650" src="images/show-todos-and-allow-toggle.png">
+</p>
 
 ## Tricks and tips
 
