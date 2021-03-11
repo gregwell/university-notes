@@ -1,4 +1,8 @@
-# Currency-converter notes
+# Currency Converter notes
+
+**Created:** 5.03.2021, **last updated:** 11.03.2021
+
+Dedicated notes for the [currency-converter](http://github.com/gregwell/currency-converter) project.
 
 ### Table of contents:
 1. [TDD & writing good tests](#tdd--writing-good-tests)
