@@ -1,5 +1,13 @@
 # Currency-converter notes
 
+### Table of contents:
+1. [TDD & writing good tests](#tdd--writing-good-tests)
+2. [Create-react-app config & JEST tests](#create-react-app-config--jest-tests)
+3. [Interaction tests with Testing Library](#interaction-tests-with-testing-library)
+4. [Different ways of fetching data from Web API](#different-ways-of-fetching-data-from-web-api)
+5. [Dealing with CORS policy](#dealing-with-cors-policy)
+6. [Testing asynchronous code](#testing-asynchronous-code)
+
 # TDD & writing good tests
 
 **created:** 5.03.2021**, last updated:** 11.03.2021
@@ -167,7 +175,7 @@ npx create-react-app my-app --template typescript
 
 > We recommend **running your tests in watch mode during development.**
 
-# Interaction tests with testing library
+# Interaction tests with Testing Library
 
 ### Links:
 
