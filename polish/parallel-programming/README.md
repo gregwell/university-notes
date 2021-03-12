@@ -2,6 +2,6 @@
 
 These notes are divided into two sections:
 
-- 📝 [reports](/parallel-programming-reports.md)
+- 📝 [reports](https://github.com/gregwell/university-notes/blob/main/polish/parallel-programming/parallel-programming-reports.md)
 
-- 💻 [theory](/parallel-programming-theory.md)
+- 💻 [theory](https://github.com/gregwell/university-notes/blob/main/polish/parallel-programming/parallel-programming-theory.md)
