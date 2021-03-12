@@ -1,4 +1,5 @@
-# Programowanie równoległe
+# Parallel Programming Theory
+
 ## 1. Przetwarzanie współbieżne, równoległe i rozproszone – charakterystyka, różnice
 
 ### Rodzaje:
