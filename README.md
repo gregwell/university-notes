@@ -3,43 +3,58 @@ The repository contains a whole bunch of my old-school-style handcrafted notes, 
 
 ## File tree:
 Generated with [md-file-tree](https://github.com/michalbe/md-file-tree)
-   - __english__
-     - __java__
-       - [javafx\-notes.md](english/java/javafx-notes.md)
-     - __javascript__
-       - [javascript.md](english/javascript/javascript.md)
-       - [react.md](english/javascript/react.md)
-     - __old\-school\-style\-notes__
-       - [computer\-networks.pdf](english/old-school-style-notes/computer-networks.pdf)
-       - [cs\-fundamentals\-graph\-theory.pdf](english/old-school-style-notes/cs-fundamentals-graph-theory.pdf)
-       - [heat\-and\-mass\-transfer\-examples.pdf](english/old-school-style-notes/heat-and-mass-transfer-examples.pdf)
-       - [heat\-and\-mass\-transfer\-theory.pdf](english/old-school-style-notes/heat-and-mass-transfer-theory.pdf)
-       - [numerical\-methods.pdf](english/old-school-style-notes/numerical-methods.pdf)
-   - __polish__
-        - [programowanie\-rownolegle.md](polish/programowanie-rownolegle.md)
-     - __java__
-       - [java.md](polish/java/java.md)
-     - __old\-school\-style\-notes__
-       - [algebra\-macierze.pdf](polish/old-school-style-notes/algebra-macierze.pdf)
-       - [algebra\-przestrzenie.pdf](polish/old-school-style-notes/algebra-przestrzenie.pdf)
-       - [algebra\-zespolone.pdf](polish/old-school-style-notes/algebra-zespolone.pdf)
-       - [analiza\-calki.pdf](polish/old-school-style-notes/analiza-calki.pdf)
-       - [analiza\-cuda\-na\-kiju.pdf](polish/old-school-style-notes/analiza-cuda-na-kiju.pdf)
-       - [analiza\-fwz.pdf](polish/old-school-style-notes/analiza-fwz.pdf)
-       - [analiza\-szeregi\-granice.pdf](polish/old-school-style-notes/analiza-szeregi-granice.pdf)
-       - [architektury\-komputerow.pdf](polish/old-school-style-notes/architektury-komputerow.pdf)
-       - [chemia.pdf](polish/old-school-style-notes/chemia.pdf)
-       - [fizyka\-drgania.pdf](polish/old-school-style-notes/fizyka-drgania.pdf)
-       - [fizyka\-dynamika.pdf](polish/old-school-style-notes/fizyka-dynamika.pdf)
-       - [fizyka\-kinematyka.pdf](polish/old-school-style-notes/fizyka-kinematyka.pdf)
-       - [fizyka2\-elektrostatyka.pdf](polish/old-school-style-notes/fizyka2-elektrostatyka.pdf)
-       - [fizyka2\-magnetyzm.pdf](polish/old-school-style-notes/fizyka2-magnetyzm.pdf)
-       - [fizyka2\-optyka.pdf](polish/old-school-style-notes/fizyka2-optyka.pdf)
-       - [fizyka2\-termodynamika.pdf](polish/old-school-style-notes/fizyka2-termodynamika.pdf)
-       - [fizyka2\-wspolczesna.pdf](polish/old-school-style-notes/fizyka2-wspolczesna.pdf)
-       - [pi\-grafy.pdf](polish/old-school-style-notes/pi-grafy.pdf)
-       - [pi\-logika.pdf](polish/old-school-style-notes/pi-logika.pdf)
-       - [podstawy\-inzynierii\-materialowej\-mapa\-mysli.jpg](polish/old-school-style-notes/podstawy-inzynierii-materialowej-mapa-mysli.jpg)
-       - [podstawy\-inzynierii\-materialowej.pdf](polish/old-school-style-notes/podstawy-inzynierii-materialowej.pdf)
-       - [rownania\-rozniczkowe.pdf](polish/old-school-style-notes/rownania-rozniczkowe.pdf)
-
+- 📂 __english__
+  - 📂 __java__
+    - 📄 [javafx\-notes.md](english/java/javafx-notes.md)
+  - 📂 __javascript__
+    - 📂 __currency\-converter__
+      - 📄 [currency\-converter.md](english/javascript/currency-converter/currency-converter.md)
+    - 📄 [javascript.md](english/javascript/javascript.md)
+    - 📄 [react.md](english/javascript/react.md)
+  - 📂 __old\-school\-style\-notes__
+    - 📂 __computer\-networks__
+      - 📄 [computer\-networks.pdf](english/old-school-style-notes/computer-networks/computer-networks.pdf)
+    - 📂 __cs\-fundamentals__
+      - 📄 [cs\-fundamentals\-graph\-theory.pdf](english/old-school-style-notes/cs-fundamentals/cs-fundamentals-graph-theory.pdf)
+    - 📂 __heat\-and\-mass\-transfer__
+      - 📄 [heat\-and\-mass\-transfer\-examples.pdf](english/old-school-style-notes/heat-and-mass-transfer/heat-and-mass-transfer-examples.pdf)
+      - 📄 [heat\-and\-mass\-transfer\-theory.pdf](english/old-school-style-notes/heat-and-mass-transfer/heat-and-mass-transfer-theory.pdf)
+    - 📂 __numerical\-methods__
+      - 📄 [numerical\-methods.pdf](english/old-school-style-notes/numerical-methods/numerical-methods.pdf)
+- 📂 __polish__
+  - 📂 __java__
+    - 📄 [java.md](polish/java/java.md)
+  - 📂 __old\-school\-style\-notes__
+    - 📂 __algebra__
+      - 📄 [algebra\-macierze.pdf](polish/old-school-style-notes/algebra/algebra-macierze.pdf)
+      - 📄 [algebra\-przestrzenie.pdf](polish/old-school-style-notes/algebra/algebra-przestrzenie.pdf)
+      - 📄 [algebra\-zespolone.pdf](polish/old-school-style-notes/algebra/algebra-zespolone.pdf)
+    - 📂 __analiza\-matematyczna__
+      - 📄 [analiza\-calki.pdf](polish/old-school-style-notes/analiza-matematyczna/analiza-calki.pdf)
+      - 📄 [analiza\-cuda\-na\-kiju.pdf](polish/old-school-style-notes/analiza-matematyczna/analiza-cuda-na-kiju.pdf)
+      - 📄 [analiza\-fwz.pdf](polish/old-school-style-notes/analiza-matematyczna/analiza-fwz.pdf)
+      - 📄 [analiza\-szeregi\-granice.pdf](polish/old-school-style-notes/analiza-matematyczna/analiza-szeregi-granice.pdf)
+    - 📂 __architektury\-komputerow__
+      - 📄 [architektury\-komputerow.pdf](polish/old-school-style-notes/architektury-komputerow/architektury-komputerow.pdf)
+    - 📂 __chemia__
+      - 📄 [chemia.pdf](polish/old-school-style-notes/chemia/chemia.pdf)
+    - 📂 __fizyka__
+      - 📄 [fizyka\-drgania.pdf](polish/old-school-style-notes/fizyka/fizyka-drgania.pdf)
+      - 📄 [fizyka\-dynamika.pdf](polish/old-school-style-notes/fizyka/fizyka-dynamika.pdf)
+      - 📄 [fizyka\-kinematyka.pdf](polish/old-school-style-notes/fizyka/fizyka-kinematyka.pdf)
+      - 📄 [fizyka2\-elektrostatyka.pdf](polish/old-school-style-notes/fizyka/fizyka2-elektrostatyka.pdf)
+      - 📄 [fizyka2\-magnetyzm.pdf](polish/old-school-style-notes/fizyka/fizyka2-magnetyzm.pdf)
+      - 📄 [fizyka2\-optyka.pdf](polish/old-school-style-notes/fizyka/fizyka2-optyka.pdf)
+      - 📄 [fizyka2\-termodynamika.pdf](polish/old-school-style-notes/fizyka/fizyka2-termodynamika.pdf)
+      - 📄 [fizyka2\-wspolczesna.pdf](polish/old-school-style-notes/fizyka/fizyka2-wspolczesna.pdf)
+    - 📂 __podstawy\-informatyki__
+      - 📄 [pi\-grafy.pdf](polish/old-school-style-notes/podstawy-informatyki/pi-grafy.pdf)
+      - 📄 [pi\-logika.pdf](polish/old-school-style-notes/podstawy-informatyki/pi-logika.pdf)
+    - 📂 __podstawy\-inzynierii\-materialowej__
+      - 📄 [podstawy\-inzynierii\-materialowej\-mapa\-mysli.jpg](polish/old-school-style-notes/podstawy-inzynierii-materialowej/podstawy-inzynierii-materialowej-mapa-mysli.jpg)
+      - 📄 [podstawy\-inzynierii\-materialowej.pdf](polish/old-school-style-notes/podstawy-inzynierii-materialowej/podstawy-inzynierii-materialowej.pdf)
+    - 📂 __rownania\-rozniczkowe__
+      - 📄 [rownania\-rozniczkowe.pdf](polish/old-school-style-notes/rownania-rozniczkowe/rownania-rozniczkowe.pdf)
+  - 📂 __parallel\-programming__
+    - 📄 [parallel\-programming\-reports.md](polish/parallel-programming/parallel-programming-reports.md)
+    - 📄 [parallel\-programming\-theory.md](polish/parallel-programming/parallel-programming-theory.md)
