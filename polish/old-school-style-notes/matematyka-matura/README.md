@@ -22,7 +22,7 @@
     - 📄 [15 Pochodna.pdf](src/15%20Pochodna.pdf)
     - 📄 [17 Rachunek prawdopodobienstwa.pdf](src/17%20Rachunek%20prawdopodobienstwa.pdf)
     - 📄 [X pro tipy.pdf](src/X%20pro%20tipy.pdf)
-    - 📄 [XX mapa funkcji.pdf](src/XX%20mapa%20funkcji.pdf)
+    - 🗺️ [XX mapa funkcji.pdf](src/XX%20mapa%20funkcji.pdf)
 
 ### Plan nauki:
 
