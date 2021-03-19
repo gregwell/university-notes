@@ -9,5 +9,4 @@ Here you can find all the notes on JavaScript
 - 📄 [React](react.md)
 
 **Project notes:**
-- 📂 __currency\-converter__
-    - 📄 [Currency Converter notes](currency-converter/currency-converter.md)
+- 📄 [Currency Converter notes](currency-converter/currency-converter.md)
