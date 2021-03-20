@@ -8,5 +8,7 @@ Here you can find all the notes on JavaScript
 
 - 📄 [React](react.md)
 
+- 📄 [Speeding-up SPA](speeding-up-spa.md)
+
 **Project notes:**
 - 📄 [Currency Converter notes](currency-converter/currency-converter.md)
