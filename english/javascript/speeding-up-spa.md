@@ -1,6 +1,6 @@
 # Speeding-up SPA
 
-**Created:** 19.03.2021, **last updated:** 20.03.2021
+**Created:** 19.03.2021, **last updated:** 21.03.2021
 
 The process of speeding-up SPA may be divided into two parts: monitoring & improving. 
 
@@ -42,6 +42,8 @@ The process of speeding-up SPA may be divided into two parts: monitoring & impro
     - the hard part is making sense of the data they provide
     - both of them store performance entries in a performance entry buffer (a list accessible by JavaScript)
     - both of them are a part of JavaScript
+    - According to [this article](https://engineering.linkedin.com/blog/2017/02/measuring-and-optimizing-performance-of-single-page-applications) these apis fail to capture JavaScript execution times in SPA, libraries that use these apis were called *traditional.* This is because single-page applications spend a significant amount of time on the browser doing JavaScript execution after the main HTML/JS/CSS are downloaded
+- **User Timing API** -
 
 ## 2. Improving
 
@@ -52,7 +54,18 @@ The process of speeding-up SPA may be divided into two parts: monitoring & impro
 
 ### 2. Compress data
 
-- 
+- **Minification**: preprocessing & context-specific optimizations
+    - build an inventory of the different content types and consider what kinds of content-specific optimizations can be applied to reduce their size
+    - once you figure out what they are, automate these optimizations by adding them to your build and release processes to ensure that the optimizations are applied.
+- **Text compression with GZIP**
+    - performs best on text-based assets: CSS, JavaScript, HTML.
+    - All modern browsers support GZIP compression and will automatically request it.
+    - Your server must be configured to enable GZIP compression.
+    - Some CDNs require special care to ensure that GZIP is enabled.
+- **Combining both methods**
+    1. Apply content-specific optimizations first: CSS, JS, and HTML minifiers.
+    2. Apply GZIP to compress the minified output.
+- Most web servers compress content on your behalf, and you just need to verify that the server is correctly configured to compress all the content types that benefit from GZIP compression.
 
 ### 3. Lazily render below-the-fold content (rendering phase)
 
@@ -144,3 +157,7 @@ WebSocket protocol:
 [https://stackify.com/rum-vs-synthetic-monitoring/](https://stackify.com/rum-vs-synthetic-monitoring/)
 
 [https://developers.google.com/web/fundamentals/performance/get-started](https://developers.google.com/web/fundamentals/performance/get-started)
+
+[https://engineering.linkedin.com/blog/2017/02/measuring-and-optimizing-performance-of-single-page-applications](https://engineering.linkedin.com/blog/2017/02/measuring-and-optimizing-performance-of-single-page-applications)
+
+[https://css-tricks.com/the-difference-between-minification-and-gzipping/](https://css-tricks.com/the-difference-between-minification-and-gzipping/)
