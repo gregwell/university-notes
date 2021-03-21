@@ -43,7 +43,9 @@ The process of speeding-up SPA may be divided into two parts: monitoring & impro
     - both of them store performance entries in a performance entry buffer (a list accessible by JavaScript)
     - both of them are a part of JavaScript
     - According to [this article](https://engineering.linkedin.com/blog/2017/02/measuring-and-optimizing-performance-of-single-page-applications) these apis fail to capture JavaScript execution times in SPA, libraries that use these apis were called *traditional.* This is because single-page applications spend a significant amount of time on the browser doing JavaScript execution after the main HTML/JS/CSS are downloaded
-- **User Timing API** -
+- **User Timing API**
+    - If you need to measure something cutom - say the time it took to load a product image, the standards (Navigation, Resource Timing APIs) are not helpful.
+    - With the User Timing API, the spec provides a high precision timestamp
 
 ## 2. Improving
 
@@ -148,7 +150,7 @@ WebSocket protocol:
 
 ### 9. Optimize images
 
-- **Choosing the right image format**
+- **Choose the right image format**
     - consider whether the effect you want can be achieved without images (e.g. by CSS effects)
     - if you have images containing geometric shapes use vector format (SVG)
         - SVG is an XML-based format so it can be minified and gzipped as other source files.
@@ -158,7 +160,7 @@ WebSocket protocol:
     - if you need to optimize a photo or screenshot use JPEG.
         - JPEG uses a combination of lossy and lossless optimization to reduce file size of the image
         - you can try several JPEG quality levels
-- **Reducing image file size - this topic should be separate notes, but let's dive in**
+- **Reduce image file size - this topic should be separate notes, but let's dive in**
     - What is a raster image?
         - It's simply a two-dimensional grid of individual "pixels"
         - Each pixel stores the RGBA values (RGB - colors, A - transparency (alpha channel))
@@ -190,6 +192,7 @@ WebSocket protocol:
             - The human eye has different level of sensitivity to different colors
             - You can optimize your color encoding to account for this by reducing or increasing the palette for those colors.
             - Instead of looking at just the immediate neighbors for each pixel, you can look at larger blocks of nearby pixels and encode different blocks with different settings.
+
     - **A typical image optimization pipeline**
         1. Image is processed with a [lossy](https://en.wikipedia.org/wiki/Lossy_compression) filter that eliminates some pixel data.
         2. Image is processed with a [lossless](https://en.wikipedia.org/wiki/Lossless_compression) filter that compresses the pixel data.
@@ -203,6 +206,9 @@ WebSocket protocol:
     6. Remove unnecessary image metadata
     7. Serve scaled images
     8. Use automated tools that will ensure that images are always optimized.
+- **Compression tools:**
+    - **Imagemin**
+        - is built around plugins - a plugin is an npm package that compresses a particular image format
 
 ## Sources:
 
@@ -223,3 +229,5 @@ WebSocket protocol:
 [https://web.dev/fast/#optimize-your-images](https://web.dev/fast/#optimize-your-images)
 
 [https://helpx.adobe.com/photoshop/using/bit-depth.html](https://helpx.adobe.com/photoshop/using/bit-depth.html)
+
+[https://akshayranganath.github.io/what-powers-rum-solutions/](https://akshayranganath.github.io/what-powers-rum-solutions/)
