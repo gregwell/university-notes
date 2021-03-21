@@ -146,6 +146,64 @@ WebSocket protocol:
         - Amazon CloudFront
     - When selecting a CDN, make sure that the CDN supports HTTP/2. HTTP/2 is a new protocol for delivering content on the web that can help speed up the loading time significantly.
 
+### 9. Optimize images
+
+- **Choosing the right image format**
+    - consider whether the effect you want can be achieved without images (e.g. by CSS effects)
+    - if you have images containing geometric shapes use vector format (SVG)
+        - SVG is an XML-based format so it can be minified and gzipped as other source files.
+    - if you need to preserve fine detail with highest resolution use PNG.
+        - PNG does not apply any lossy compression algorithms beyond the choice of the size of the color palette
+        - the highest quality image but at a cost of significantly  higher file size than other formats
+    - if you need to optimize a photo or screenshot use JPEG.
+        - JPEG uses a combination of lossy and lossless optimization to reduce file size of the image
+        - you can try several JPEG quality levels
+- **Reducing image file size - this topic should be separate notes, but let's dive in**
+    - What is a raster image?
+        - It's simply a two-dimensional grid of individual "pixels"
+        - Each pixel stores the RGBA values (RGB - colors, A - transparency (alpha channel))
+            - Internally, the browser allocates 256 values (shades) for each pixel channel
+                - 2^8 = 256, so 8 bits (1 byte) per channel
+                - we have 4 channel, so browser allocates 4 bytes for each pixel
+                - it doesn't matter what image format is used to transfer data from the server to the client, when the image is decoded by the browser, each pixel always occupies 4 bytes of memory (uncompressed variant)
+    - **Reduce *bit depth* of the image**
+        - *Big depth* specifies how much color information is available for each pixel in an image
+        - More bits of information per pixel = more accurate color representation in an image
+        - The file size of an image increases with bit depth
+        - Examples:
+            - An image with a bit depth of 1 has pixels with two possible values: black and white.
+            - An image with a bit depth of 8 has 28, or 256, possible values.
+            - Grayscale mode images with a bit depth of 8 have 256 possible gray values.
+            - RGB mode images are made of three color channels. An 8‑bit per pixel RGB image has 256 possible values for each channel which means it has over 16 million possible color values.
+            - RGB images with 8‑bits per channel (Bits/Channel or bpc) are sometimes called 24‑bit images (8 bits x 3 channels = 24 bits of data for each pixel)
+            - Images with 32 Bits/Channel are also known as high dynamic range (HDR) images.
+        - Compression example:
+            - Reducing the palette from >16 million colors to 256 colors
+                - one byte is occupied by transparency (alpha) channel and one byte is occupied by RGB channels (instead of 3!)
+                - that's 50% compression savings over the original 4 bytes per pixel!
+        - works great when the photo contains only a few colors
+    - **Delta encoding**
+        - When on the photo many nearby pixels has similar colors we can use delta encoding
+        - Instead of storing the individual values for each pixel we can store the difference between adjacent pixels
+        - If they are the same, then the difference is 0, so we have to store only a single bit!
+        - Saving ever more
+            - The human eye has different level of sensitivity to different colors
+            - You can optimize your color encoding to account for this by reducing or increasing the palette for those colors.
+            - Instead of looking at just the immediate neighbors for each pixel, you can look at larger blocks of nearby pixels and encode different blocks with different settings.
+    - **A typical image optimization pipeline**
+        1. Image is processed with a [lossy](https://en.wikipedia.org/wiki/Lossy_compression) filter that eliminates some pixel data.
+        2. Image is processed with a [lossless](https://en.wikipedia.org/wiki/Lossless_compression) filter that compresses the pixel data.
+        - In fact, the difference between various image formats, such as GIF, PNG, JPEG, and others, is in the combination of the specific algorithms they use (or omit) when applying the lossy and lossless steps.
+- **Summary:**
+    1. Prefer vector formats
+    2. Minify and GZIP vector graphics
+    3. Prefer WebP over older raster formats
+    4. Pick best raster image format
+    5. Experiment with optimal quality settings for raster formats.
+    6. Remove unnecessary image metadata
+    7. Serve scaled images
+    8. Use automated tools that will ensure that images are always optimized.
+
 ## Sources:
 
 [https://www.mindk.com/blog/how-to-speed-up-your-single-page-application/](https://www.mindk.com/blog/how-to-speed-up-your-single-page-application/)
@@ -161,3 +219,7 @@ WebSocket protocol:
 [https://engineering.linkedin.com/blog/2017/02/measuring-and-optimizing-performance-of-single-page-applications](https://engineering.linkedin.com/blog/2017/02/measuring-and-optimizing-performance-of-single-page-applications)
 
 [https://css-tricks.com/the-difference-between-minification-and-gzipping/](https://css-tricks.com/the-difference-between-minification-and-gzipping/)
+
+[https://web.dev/fast/#optimize-your-images](https://web.dev/fast/#optimize-your-images)
+
+[https://helpx.adobe.com/photoshop/using/bit-depth.html](https://helpx.adobe.com/photoshop/using/bit-depth.html)
