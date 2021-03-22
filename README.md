@@ -24,7 +24,6 @@ Generated with [md-file-tree](https://github.com/michalbe/md-file-tree)
       - 📄 [heat\-and\-mass\-transfer\-theory.pdf](english/old-school-style-notes/heat-and-mass-transfer/heat-and-mass-transfer-theory.pdf)
     - 📂 __numerical\-methods__
       - 📄 [numerical\-methods.pdf](english/old-school-style-notes/numerical-methods/numerical-methods.pdf)
-- 📄 [node\_modules](node_modules)
 - 📂 __polish__
   - 📂 __java__
     - 📄 [java.md](polish/java/java.md)
