@@ -4,6 +4,26 @@
 
 The process of speeding-up SPA may be divided into two parts: monitoring & improving. 
 
+### Table of contents:
+
+**1. Monitoring**
+
+- [1. Browser plug-ins](#1-browser-plug-ins-eg-chrome-devtools-or-yslow)
+- [2. Synthetic testing](#2-synthetic-testing-eg-webpagetest-catchpoint)
+- [3. Real user monitoring (RUM)](#3-real-user-monitoring-rum-eg-google-analytics)
+
+**2. Improving:**
+
+- [1. Eliminate unnecessary downloads](#1-eliminate-unnecessary-downloads)
+- [2. Compress data](#2-compress-data)
+- [3. Lazily render below-the-fold content (rendering phase)](#3-lazily-render-below-the-fold-content-rendering-phase)
+- [4. Lazy data fetching (transition phase)](#4-lazy-data-fetching-transition-phase)
+- [5. Cache the static content](#5-cache-the-static-content)
+- [6. Use WebSockets where appropriate (i.e. for highly interactive apps)](#6-use-websockets-where-appropriate-ie-for-highly-interactive-apps)
+- [7. Employ JSONP/CORS to bypass the same-origin policy](#7-employ-jsonpcors-to-bypass-the-same-origin-policy)
+- [8. Use a content delivery network (CDN)](#8-use-a-content-delivery-network-cdn)
+- [9. Optimize images](#9-optimize-images)
+
 ## 1. Monitoring
 
 - Data collected from monitoring methods can generally be divided into lab data (browser plug-ins, synthetic tests) and field data (RUM). Both of them are necessary for good performance testing.
