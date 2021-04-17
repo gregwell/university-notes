@@ -14,6 +14,8 @@ Generated with [md-file-tree](https://github.com/michalbe/md-file-tree)
     - 📄 [javascript.md](english/javascript/javascript.md)
     - 📄 [react.md](english/javascript/react.md)
     - 📄 [speeding\-up\-spa.md](english/javascript/speeding-up-spa.md)
+  - 📂 __devops__
+    - 📄 [devops.md](english/devops/devops.md)
   - 📂 __old\-school\-style\-notes__
     - 📂 __computer\-networks__
       - 📄 [computer\-networks.pdf](english/old-school-style-notes/computer-networks/computer-networks.pdf)
