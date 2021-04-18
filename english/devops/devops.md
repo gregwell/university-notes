@@ -16,19 +16,19 @@ Diagram : [link](https://raw.githubusercontent.com/gregwell/university-notes/mai
 
 - Git flow
 
-<img width="100" src="images/git-flow.png">
+<img height="250" src="images/git-flow.png">
 
 - Gitlab flow
 
-<img width="100" src="images/git-lab-flow.png">
+<img height="250" src="images/git-lab-flow.png">
 
 - Github flow
 
-<img width="100" src="images/github-flow.png">
+<img height="250" src="images/github-flow.png">
 
 - One flow
 
-<img width="100" src="images/one-flow.png">
+<img height="250" src="images/one-flow.png">
 
 ### 3. Git hooks
 
