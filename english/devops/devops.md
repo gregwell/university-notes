@@ -2,11 +2,35 @@
 
 Diagram : [link](https://raw.githubusercontent.com/gregwell/university-notes/main/english/devops/images/diagram.png)
 
-### Lab 1. git
+## Git
 
-**git squash** - to "squash" in Git means to combine multiple commits into one. You can do this at any point in time (by using Git's "Interactive Rebase" feature), though it is most often done when merging branches.
+### 1. Git operations
 
-### Lab 2. git
+**git squash** - to "squash" in Git means to combine multiple commits into one. You can do this at any point in time, though it is most often done when merging branches.
+
+**git rebase** - :
+
+![images/git-rebase.png](images/git-rebase.png)
+
+### 2. Git flows
+
+- Git flow
+
+<img width="100" src="images/git-flow.png">
+
+- Gitlab flow
+
+<img width="100" src="images/git-lab-flow.png">
+
+- Github flow
+
+<img width="100" src="images/github-flow.png">
+
+- One flow
+
+<img width="100" src="images/one-flow.png">
+
+### 3. Git hooks
 
 - created git hook *commit-msg* which does not allow a commit message that does not contain a keyword at the beginning
 
@@ -20,7 +44,9 @@ if [[ -z $isPresent ]]
 fi
 ```
 
-### Lab 3. dockerfile
+# Docker
+
+### Dockerfile
 
 **Dockerfile:**
 
@@ -39,7 +65,7 @@ docker run -it first-docker
 git clone https://github.com/InzynieriaOprogramowaniaAGH/MIFT2021.git
 ```
 
-### Lab 4. docker compose
+### Docker-compose
 
 `git checkout -b Grupa05-GS306504_Lab04` - created a new branch 
 
