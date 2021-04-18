@@ -2,7 +2,11 @@
 
 Diagram : [link](https://raw.githubusercontent.com/gregwell/university-notes/main/english/devops/images/diagram.png)
 
-### Lab 1. intro
+### Lab 1. git
+
+**git squash** - to "squash" in Git means to combine multiple commits into one. You can do this at any point in time (by using Git's "Interactive Rebase" feature), though it is most often done when merging branches.
+
+### Lab 2. git
 
 - created git hook *commit-msg* which does not allow a commit message that does not contain a keyword at the beginning
 
@@ -16,7 +20,7 @@ if [[ -z $isPresent ]]
 fi
 ```
 
-### Lab 2. dockerfile
+### Lab 3. dockerfile
 
 **Dockerfile:**
 
@@ -35,7 +39,7 @@ docker run -it first-docker
 git clone https://github.com/InzynieriaOprogramowaniaAGH/MIFT2021.git
 ```
 
-### Lab 3. docker-compose.yml
+### Lab 4. docker compose
 
 `git checkout -b Grupa05-GS306504_Lab04` - created a new branch 
 
@@ -79,7 +83,7 @@ version: '3.3'
 services: 
     build:
         container_name: nodechat-build
-        image: nodechat-build: latest
+        image: nodechat-build:latest
         build: 
             context: .
             dockerfile: Dockerfile-build
