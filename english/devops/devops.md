@@ -229,26 +229,16 @@ docker run --name jenkins-blueocean --rm --detach `
 ```
 
 - went to [localhost:8080](http://localhost:8080) to unlock jenkins
-- to be continued
-
-```docker
-node {
-    workspacePath = 'Grupy/Grupa05/GS306504/Lab04'
-    stage('Preparation: SCM') {
-        checkout([$class: 'GitSCM',
-            branches: [[name: 'Grupa05']],
-            extensions: [],
-            userRemoteConfigs: [[url: 'https://github.com/InzynieriaOprogramowaniaAGH/MIFT2021/']]])
-    }
-    stage('StartUp') {
-        script {
-            dir(workspacePath) {
-                pwsh script: """
-                    pwd; tree
-                    docker-compose up
-                """, label: "Running `docker-compose up` from PowerShell Core"
-            }
-        }
-    }
-}
+- created new jenkins job *freestyle* of type
+- configured to execute the following shell scirpt as a build step:
 ```
+cd Grupy/Grupa05/GS306504/Lab04
+pwd
+ls
+docker --version
+curl -L https://github.com/docker/compose/releases/download/1.1.0/docker-compose-`uname -s`-`uname -m` > /usr/local/bin/docker-compose
+chmod +x /usr/local/bin/docker-compose
+docker-compose --version
+docker-compose up
+```
+
