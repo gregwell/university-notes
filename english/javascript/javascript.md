@@ -753,6 +753,247 @@ loadJson('/article/promise-chaining/user.json')
 3. `.then` showAvatar function is executed and returns a new promise, that is resolved after showing the avatar for 3 seconds.
 4. `showAvatar`is resolved with `githubUser` value(object).  `.then` uses this object to execute alert.
 
+# ES6 syntax:
+
+read refactors on github to learn what has changed
+
+[https://github.com/michalbe/md-file-tree/commit/41bafe522ca626d7627e66b937e48f3ad3c45a18](https://github.com/michalbe/md-file-tree/commit/41bafe522ca626d7627e66b937e48f3ad3c45a18)
+
+New features:
+
+- arrow functions
+- classes
+- template strings
+- destructing - The **destructuring assignment** syntax is a JavaScript expression that makes it possible to unpack values from arrays, or properties from objects, into distinct variables.
+- default value
+- spread operator - **Spread syntax** allows an iterable such as an array expression or string to be expanded in places where zero or more arguments (for function calls) or elements (for array literals) are expected, or an object expression to be expanded in places where zero or more key-value pairs (for object literals) are expected. Example: [...iterableObj, '4', 'five', 6];
+- let, const, var
+
+# Other
+
+### Hoisting
+
+- Hoisting is a JavaScript mechanism where variables and function declarations are moved to the top of their scope before code execution.
+- Function expressions load only when the interpreter reaches that line of code. So if you try to call a function expression before it's loaded, you'll get an error!
+- If you call a function declaration instead, it'll always work, because no code can be called until all declarations are loaded.
+
+```jsx
+hoistedFunction(); // Hello! I am defined immediately!
+notHoistedFunction(); // ReferenceError: notHoistedFunction is not defined
+
+// Function Decalration
+function hoistedFunction () {
+  console.log('Hello! I am defined immediately!');
+}
+
+// Function Expression
+const notHoistedFunction = function () {
+  console.log('I am not defined immediately.');
+}
+```
+
+# FP vs OOP
+
+- Both OOP and FP have the shared goal of creating understandable, flexible programs that are free of bugs.
+
+**OOP**:
+
+- says that **bringing together data and its associated behavior in a single locatio**n (called an “object”) makes it easier to understand how a program works.
+- Classes often used to generate object instances
+- Class defines the attributes with which we want to imbue our object.
+- We will give our class "*instance methods*", which will exist within our object.
+- These instance methods can be called on the object itself.
+- "initialize", is not an instance method, but instead tells the class what attributes it will have at the moment of it's creation.
+- Every new instance of our object will contain preset **data** and **behavior**
+- As noted above, data will be provided to our instance upon creation
+- We then use methods on our instance object to manipulate it's data
+- All of the important information our objects contain is stored safely within their classes. If you can imagine being an engineer at a fairly large company, with a lot of pre-written code, you can also see where this would come in handy.
+- Core Concepts:
+    - **Abstraction (focusing on necessary details)**
+        - it literally means to perceive an entity in a system or context from a particular perspective.
+        - We take out unnecessary details and only focus on aspects that are necessary to that context or system under consideration.
+        - Abstraction is the concept of moving the focus from the details and concrete implementation of things, to the types of things (i.e. classes), the operations available (i.e. methods), etc, thus making the programming simpler, more general, and more abstract.
+    - **Encapsulation (hiding details from the outer world)**
+        - hiding the details of the object and providing a decent interface for the entities in outer world to interact with that object or entity.
+        - For example, if someone want to know my name then he cannot directly access my brain cells to get to know what is my name. Instead that person will either ask my name.
+        - encapsulation means to hide the details of implementation and only show the types of things and their more general and abstract definitions.
+    - **Inheritance**
+    - **Polymorphism (the ability to take on multiple forms.)**
+        - the practice of designing objects to share behaviors and to be able to override shared behaviors with specific ones.
+        - Polymorphism takes advantage of inheritance in order to make this happen.
+
+**FP**
+
+- says that **data and behavior are distinctively different things** and should be kept separate for clarity.
+- Uses a series of small methods that each do their own specific job.
+- **Avoiding side effects** is one of the pillars of functional programming (the other is using higher order functions).
+- Implements *composition* or building of large tasks with smaller ones, which is also used in OOP languages, but it's pivotal to FP ones.
+- **Objects are** **immutable**, can't be changed after being created
+- Best fit for data science work
+- A function is reusable
+- **Core Concepts**
+    - **Higher Order Functions**
+        - Higher-order functions are functions that take other functions as arguments or return functions as their results.
+        - higher-order functions vs callback functions
+
+            A [higher-order function](https://en.wikipedia.org/wiki/Higher-order_function) is a function that takes another function(s) as an argument(s) **and/or** returns a function to its callers.
+
+            A [callback function](https://en.wikipedia.org/wiki/Callback_(computer_programming)) is a function that is passed to another function with the expectation that the other function will call it.
+
+        - **higher-order vs first class functions**
+            - The “higher-order” concept can be applied to functions in general, like functions in the mathematical sense. The “first-class” concept only has to do with functions in programming languages.
+            - When you say that a language has first-class functions, it means that the language treats functions as values – that you can assign a function into a variable, pass it around etc.
+        - example:
+
+            ```jsx
+            const double = n => n * 2
+            [1, 2, 3, 4].map(double) // [ 2, 4, 6, 8 ]
+            ```
+
+            - functions are values ( first-class citizens ). This means that they can be assigned to a variable and/or passed as a value.
+        - the same code snippet without higher-order function
+
+            ```jsx
+            let array = [1, 2, 3, 4]
+            let newArray = []
+
+            for(let i = 0; n < array.length; i++) {
+                newArray[i] = array[i] * 2
+            }
+
+            newArray // [ 2, 4, 6, 8 ]
+            ```
+
+    - **Pure Functions**
+        - functions that **accept an input and returns a value without modifying any data outside its scope** (Side Effects).
+            - The function does not produce any observable side effects such as network requests, input and output devices, or data mutation.
+        - The function **always returns the same result if the same arguments are passed in**
+            - It does not depend on any state, or data, change during a program’s execution. It must only depend on its input arguments.
+    - **Recursion**
+        - the process of defining a problem (or the solution to a problem) in terms of (a simpler version of) itself
+        - **Why recursion in FP? Immutable variables**
+            - Using recursion we don't need a mutable state while solving some problem, and this make possible to specify a semantic in simpler terms. Thus solutions can be simpler, in a formal sense.
+            - Recursion is natural, when you operate on higher levels of abstraction. **Functional programming is not just about coding with functions**; it is about operating on higher levels of abstraction, where you naturally use functions. Using functions, it is only natural to reuse the same function (to call it again), from whatever context where it makes sense.
+            - Recursion is everywhere. Any iterative loop is a recursion in disguise anyway, because when you reenter that loop, you reenter that same loop again (just with maybe different loop variables). So it's not like inventing new concepts about computing, it's more like discovering the foundations, and making it explicit.
+    - **Strict & Non-Strict Evaluation**
+        - the compiler throws some silent errors that were previously not thrown or ignored. Also, doesn't allow you to do certain things. Let's see what things.
+        - for example
+            - does not let the use of variables which have not been declared.
+            - does not let to send duplicate parameters in function
+            - Silent Errors are thrown
+    - **Type Systems - PropTypes etc.**
+    - **Referential Transparency**
+        - defined as the fact that **an expression, in a program, may be replaced by its value** (or anything having the same value) without changing the result of the program
+        - this implies that methods should always return the same value for a given argument, without having any other effect
+
+**Section sources:**
+
+- [https://dev.to/krtb/functional-vs-object-oriented-programming-357](https://dev.to/krtb/functional-vs-object-oriented-programming-357)
+- [https://stackoverflow.com/questions/12659581/functional-programming-lots-of-emphasis-on-recursion-why](https://stackoverflow.com/questions/12659581/functional-programming-lots-of-emphasis-on-recursion-why)
+
+**What people believe**
+
+> Feels like the whole industry is moving to not deeply using OOP and preferring immutable objects and pure functions over data mutations, so this topic maybe just a tribute to old times 🤷 - [https://dev.to/kozlovzxc/js-interview-in-2-minutes-encapsulation-oop-2ico](https://dev.to/kozlovzxc/js-interview-in-2-minutes-encapsulation-oop-2ico)
+
+> functional approaches, which are GREAT for stateless, event driven actions (IE: Your typical microservices web backend) and OOP which are much better suited for stateful, context dependent actions (Like you might see in an application designed to run independently without API support, like a desktop app or a game).
+
+# Closures
+
+([source](https://dmitripavlutin.com/simple-explanation-of-javascript-closures/))
+
+- The **scope** is a space policy that rules the accessibility of variables.
+    - *Scopes can be nested*
+    - *The variables of the outer scope are accessible inside the inner scope*
+- the **lexical scoping** means that inside the inner scope you can access variables of outer scopes.
+    - *the engine determines (at lexing time) the nesting of scopes just by looking at the JavaScript source code, without executing it.*
+
+    ```jsx
+    function outerFunc() {
+      // the outer scope
+      let outerVar = 'I am outside!';
+
+      function innerFunc() {
+        // the inner scope
+        console.log(outerVar); // => logs "I am outside!"
+      }
+
+      innerFunc();
+    }
+
+    outerFunc();
+    ```
+
+    - How engine understands this code snippet:
+        1. *I can see you define a function `outerFunc()` that has a variable `outerVar`. Good.*
+        - *Inside the `outerFunc()`, I can see you define a function `innerFunc()`.*
+        - *Inside the `innerFunc()`, I can see a variable `outerVar` without declaration. Since I use lexical scoping, I consider the variable `outerVar` inside `innerFunc()` to be the same variable as `outerVar` of `outerFunc()`.*
+- **The closure** is a function that accesses its lexical scope even executed outside of its lexical scope.
+
+    ```jsx
+    function outerFunc() {
+      let outerVar = 'I am outside!';
+
+      function innerFunc() {
+        console.log(outerVar); // => logs "I am outside!"
+      }
+
+      return innerFunc;
+    }
+
+    const myInnerFunc = outerFunc();
+    myInnerFunc();
+    ```
+
+    - in this code snippet **innerFunc()** is executed outside of its lexical scope:
+        - innerFunc() still has access to outerVar from its lexical scope, even being executed outside of its lexical scope.
+        - In other words, innerFunc() **closes over** (a.k.a. captures, remembers) the variable outerVar from its lexical scope.
+        - **In other words, innerFunc() is a closure because it closes over the variable outerVar from its lexical scope.**
+        - Simpler, the closure is a function that remembers the variables from the place where it is defined, regardless of where it is executed later.
+
+    **Example (Callback)**
+
+    ```jsx
+    const message = 'Hello, World!';
+
+    setTimeout(function callback() {
+      console.log(message); // logs "Hello, World!"
+    }, 1000);
+    ```
+
+    **Example (Event handler)**
+
+    ```jsx
+    let countClicked = 0;
+
+    myButton.addEventListener('click', function handleClick() {
+      countClicked++;
+      myText.innerText = `You clicked ${countClicked} times`;
+    });
+    ```
+
+    **Example (Functional programming: currying)**
+
+    - **Currying** happens when a function returns another function until the arguments are fully supplied.
+
+    ```jsx
+    function multiply(a) {
+      return function executeMultiply(b) {
+        return a * b;
+      }
+    }
+
+    const double = multiply(2);
+    double(3); // => 6
+    double(5); // => 10
+
+    const triple = multiply(3);
+    triple(4); // => 12
+    ```
+
+    - multiply is a curried function that returns another function.
+    - Currying, an important concept of functional programming, is also possible thanks to closures.
+    - executeMultiply(b) is a closure that captures a from its lexical scope. When the closure is invoked, the captured variable a and the parameter b are used to calculate a * b.
+
 ## Credits:
 
 [https://github.com/javascript-tutorial/en.javascript.info](https://github.com/javascript-tutorial/en.javascript.info)
