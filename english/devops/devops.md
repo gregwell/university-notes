@@ -109,7 +109,6 @@ RUN git clone [https://github.com/binhxn/node-chat-app.git](https://github.com/b
 WORKDIR /data/app
 RUN npm install
 EXPOSE 3000
-CMD ["npm", "start"]
 ```
 
 **Dockerfile-test**
@@ -162,7 +161,7 @@ services:
 
 ## Lab 5: Jenkins as CI/CD driver
 
-**Task:**
+### **Task:**
 
 1. *familiarize yourself with the diagram discussed in class.*
 2. *familiarize yourself with the Jenkins software: [https://www.jenkins.io/](https://www.jenkins.io/).*
@@ -175,7 +174,7 @@ services:
 - *assume Jenkins runs the docker-compose.yaml file and creates the environment with Lab04*
 - *note that running docker-compose requires.yaml of the Docker software*
 
-**Notes:**
+### **Notes:**
 
 - Created a bridge network in Docker using the following docker network create command
 
@@ -241,4 +240,31 @@ chmod +x /usr/local/bin/docker-compose
 docker-compose --version
 docker-compose up
 ```
+
+### **Issues:**
+
+1. **Permissions denied when downloading docker-compose from the url with curl command**
+
+**Cause**:
+
+- the user that is executing the script in jenkins is 'jenkins', such operations(saving to system folders) can be done only by root
+
+**Solution**:
+
+- addded 'jenkins ALL (ALL) NOPASSWD: ALL' to /etc/sudoers file
+- *(temporary solution! need to be solved permamently in the future)**
+
+**2. Never-ending loading after running docker-compose in jenkins.**
+
+**Cause**:
+
+- Dockerfile-build do not finish its work
+- Problem with understanding how docker works.
+- If I start an application via 'npm start' and don't terminate it then jenkins will wait until it terminates. In this case, forever.
+- Dockerfile-build should just clone the repo, install dependencies with 'npm install'.
+- The Dockerfile-test file tests if the program works correctly, no need to do it in Dockerfile-build.
+
+**Solution**:
+
+- Delete 'npm start' from Dockerfile-build
 
