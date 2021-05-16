@@ -268,3 +268,54 @@ docker-compose up
 
 - Delete 'npm start' from Dockerfile-build
 
+## Lab 6: Release pipeline
+
+### **Task:**
+
+*In today's class you will play the role of a DevOps developer whose task is to prepare a release pipeline plan (sequence of implementation steps) and to prepare a document (in pdf format) presenting the planned process. You do not have to implement the process at this point! Before you start implementing them, read the Jenkinsfile concept very carefully ([https://www.jenkins.io/doc/book/pipeline/](https://www.jenkins.io/doc/book/pipeline/) with subsections as needed). Eventually in the future a large part (or even the whole) of the plan you create will have to be included in a Jenkinsfile.*
+
+*The program that is the subject of the pipeline is the one you chose in Lab 4. Remember that in order to have your own copy of the open source program repository (e.g. to modify it, place additional files, git hooks, etc.) you can use the "fork" option, as described here: [https://guides.github.com/activities/forking/](https://guides.github.com/activities/forking/).*
+
+1. *the plan file is to contain or meet the following requirements:*
+- *title page with information who, for what application, when, with planned use of what technologies prepared this plan*
+- *activity diagram (UML Activity diagram) showing in a schematic way all activities and main decisions. You can (and even should) refer to the "CI/CD Pipeline" diagram discussed in the lecture, but each of the general steps should be 1) detailed - broken down into specific actions*
+1. *indicate the specific technology planned to be used in a given step.*
+- *an implementation diagram (UML Deployment Diagram) analogous to the one discussed in Lab 5. It should be adjusted to reality, missing elements should be added, those not present or not relevant should be removed.*
+- *verbal discussion of all steps planned to be taken within the CI/CD Pipeline - concretely, not theoretically*
+- *is to use the following technologies (maybe others)*
+1. *git (including git hooks, GitHub)*
+2. *docker (including docker compose)
+(3) docker registry (including DockerHub)*
+3. *Jenkins (including Jenkinsfile)*
+
+### Release pipeline
+
+**App**: Node chat app
+
+**Date**: 16.05.2021
+
+**Tech stack:** Github, Docker, Dockerhub, Jenkins
+
+**What is what;**
+
+- A **release** is a collection of artifacts in your DevOps CI/CD processes.
+- An **artifact** is a deployable component of your application
+
+**Activity diagram:**
+
+![acivity diagram](images/activity-diagram.png)
+
+**Deployment diagram:**
+
+![deployment diagram](images/deployment-diagram.png)
+
+**Jenkins pipeline description:**
+
+1. Detection of changes in repository - a new commit
+2. Jenkins fetches data and starts deployment process based on Jenkinsfile.
+3. Docker-compose.yml consists of two images
+    - build: simply clones the repository and configures it, install dependencies etc.
+    - test: runs tests
+4. If build container fails to build itself the notification is sent to Jenkins Dashboard and the process stops.
+5. If build container successfully builds itself, then the test container is to be run. If the tests fail the process stops and notification to Jenkins Dashboard is sent.
+6. Then, a new image is published in dockerhub (new version) and the code is deployed to production.
