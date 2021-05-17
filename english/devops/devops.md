@@ -251,7 +251,7 @@ docker-compose up
 
 **Solution**:
 
-- addded 'jenkins ALL (ALL) NOPASSWD: ALL' to /etc/sudoers file
+- addded 'jenkins ALL=(ALL) NOPASSWD: ALL' to /etc/sudoers file
 - *(temporary solution! need to be solved permamently in the future)**
 
 **2. Never-ending loading after running docker-compose in jenkins.**
