@@ -251,7 +251,7 @@ docker-compose up
 
 **Solution**:
 
-- addded 'jenkins ALL (ALL) NOPASSWD: ALL' to /etc/sudoers file
+- addded 'jenkins ALL=(ALL) NOPASSWD: ALL' to /etc/sudoers file
 - *(temporary solution! need to be solved permamently in the future)**
 
 **2. Never-ending loading after running docker-compose in jenkins.**
@@ -319,6 +319,7 @@ docker-compose up
 4. If build container fails to build itself the notification is sent to Jenkins Dashboard and the process stops.
 5. If build container successfully builds itself, then the test container is to be run. If the tests fail the process stops and notification to Jenkins Dashboard is sent.
 6. Then, a new image is published in dockerhub (new version) and the code is deployed to production.
+<<<<<<< HEAD
 
 ## Lab 7: Pipeline CI/CD - basics & testing.
 
@@ -427,3 +428,4 @@ pipeline {
 **Jenkins project**
 
 - in Jenkins followed steps: New item → Pipeline → Pipeline script from SCM → pasted the link to forked node-chat-app github repo → Selected git → Saved
+
