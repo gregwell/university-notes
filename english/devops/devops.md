@@ -466,6 +466,7 @@ pipeline {
     stage('Build') {
       steps {
         sh "npm install"
+        sh 'no script'
       }
       post {
         success {
@@ -499,3 +500,171 @@ pipeline {
 ```
 
 - then created a *post-commit* hook and placed it inside node chat app repository's .git folder
+
+## Lab 9: Pipeline CI/CD - Deploying a program and running an automated pipeline
+
+1. *register githook (see class 07) or webhook (documentation e.g.: here [https://docs.github.com/en/developers/webhooks-and-events/about-webhooks](https://docs.github.com/en/developers/webhooks-and-events/about-webhooks)) in your repository with the chat app. Such that:*
+- *every time a commit occurs on the main branch, run the pipeline described in the Jenkinsfile.*
+- *in case of connection problems within the hook, you can create a clone of the repository locally to avoid those connection problems*
+1. *demonstrate and document automatic triggering of the pipeline in point 1.*
+2. *extend Jenkinsfile from Lab09 with a new stage("Deploy") - documentation with available commands is here: [https://www.jenkins.io/doc/book/pipeline/jenkinsfile/](https://www.jenkins.io/doc/book/pipeline/jenkinsfile/).*
+3. *in stage("Deploy") make sure that:*
+- *deploy is done to a dedicated docker container*
+- *the artifact created in stage("Build") is passed to the deploy*
+- *the user is notified of both success and failure of the deploy stage.*
+
+*5 Demonstrate and document that:*
+
+- *the pipeline is defined in the Jenkinsfile in the messenger repo*
+- *pipeline is automatically triggered*
+- *pipeline passes all stages (stage build-test-deploy)*
+- *pipeline supports notification of reslutations of each stage*
+
+- Added *post-commit* hook
+    - HIDDEN is a token that I is generated in jenkins dashboard
+
+```bash
+#!/bin/bash
+
+echo "This git hook just executed jenkins pipeline"
+
+curl -u admin:HIDDEN -X POST http://localhost:8080/job/node-chat-pipeline/build?token=HIDDEN
+```
+
+- added a new stage to Jenkinsfile
+
+```bash
+stage('Deploy') { 
+            steps {
+              echo 'Deploying!'
+              sh 'docker build -t deploy -f Dockerfile-deploy .'
+            }
+            post {
+        	failure {
+        		echo 'Deployment failure'
+            slackSend (color: '#00FF00', message: "Deployment failure: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})")
+        	}
+        	success {
+            echo 'Deployment succesful!'
+            slackSend (color: '#00FF00', message: "Deployment sucesful: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})")
+        	}
+    		}
+        }
+```
+
+- Created new Dockerfile that was put in forked node chat repo.
+
+```bash
+FROM node:latest
+
+WORKDIR /data/app
+
+COPY . .
+
+CMD [ "node", "server/server.js" ]
+```
+
+- finally, I didn't make it work, due to very slow computer performance when running both containers
+
+## Lab 10: Releasement pipeline review
+
+- red color = changed
+- uml activity diagram
+
+![images/activity-lab10.png](images/activity-lab10.png)
+
+- uml deployment diagram
+
+![images/deployment-lab10.png](images/deployment-lab10.png)
+
+## Lab 11: Kubernetes cluster basics
+
+1. *For this exercise, we will need a docker container (image) with a built communicator (from the previous activity).*
+2. *Make sure you have installed Kubernetes cluster. If you already have Kubectl and Minikube, you don't need to do anything.
+If you don't yet, then download and install Minikube.
+On this page: [https://minikube.sigs.k8s.io/docs/start/](https://minikube.sigs.k8s.io/docs/start/) has detailed instructions on how to do this.
+Pay attention to:*
+- *starting the cluster (minikube start)*
+- *Download kubectl (minikube kubectl -- get after -A) if you have not already mastered it*
+1. *enable and run the Minikube Dashboard as described here: [https://minikube.sigs.k8s.io/docs/handbook/dashboard/](https://minikube.sigs.k8s.io/docs/handbook/dashboard/).
+This is usually done with the command "minikube dashboard".*
+
+*3.1 List what you can do using the Minikube Dashboard*
+
+1. *now run the container-messenger [corresponding to "stage("Deploy") in Jenkinsfile] in Kubernetes, using a command like this:
+"kubectl run communicator --image=YOUR_DOCKER_ID/YOUR_COMMUNICATOR_IMG --port=9999 --labels app=communicator"*
+
+*4.1 To test if it works you need to do port forwarding to allow external access:
+"kubectl port-forward deploy/communicator <NR_PORTU_NA_LOCALHOST>:<NR_PORTU_IN_ONTENER>"*
+
+*4.2 Alternatively, you can refer to section four of the Minikube documentation ([https://minikube.sigs.k8s.io/docs/start/](https://minikube.sigs.k8s.io/docs/start/)) and use the "deploy" command to do this.*
+
+1. *document that the communicator is running in a Kubernetes cluster.*
+
+*Translated with [www.DeepL.com/Translator](http://www.deepl.com/Translator) (free version)*
+
+**Steps:**
+
+```bash
+minikube start
+```
+
+```bash
+curl -o kubectl.exe https://storage.... link to kubectl.exe
+```
+
+```bash
+minikube kubectl -- run appka3 --image=gregwell/nodechatnuevo --port=8889 --labels app=appka3
+```
+
+```bash
+minikube kubectl port-forward appka3 8889:3000
+```
+
+## Lab 12: Kubernetes cluster basics: Deployment Manifest
+
+1. *For this exercise we will need a running (local) Kubernetes cluster (kubectl+Minikube) as discussed in Lab11.*
+2. *Run the Minikube Dashboard with the "minikube dashboard" command and make sure it works.*
+3. *refer to the documentation for creating manifests for "Deployment" objects: [https://kubernetes.io/docs/concepts/workloads/controllers/deployment/](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/)*
+4. *create a communicator-deployment.yaml file according to the documentation above, but containing:*
+- *name: communicator-deployment*
+- *app: messenger*
+- *messenger image as in the previous class*
+- *4 replicas*
+
+*5 Have the cluster execute the above file using the command:
+kubectl apply -f communicator-deployment.yaml*
+
+1. *document the state of the Kubernetes cluster.*
+2. *make changes to the file - e.g.: change the number of replicas - and have the cluster update as in. 5.*
+3. *document the new state of the cluster.*
+
+```bash
+kubectl apply -f komunikator-deployment.yaml
+```
+
+**komunikator-deployment.yaml**
+
+```yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: komunikator-deployment
+  labels:
+    app: komunikator
+spec:
+  replicas: 6
+  selector:
+    matchLabels:
+      app: komunikator
+  template:
+    metadata:
+      labels:
+        app: komunikator
+    spec:
+      containers:
+      - name: komunikator
+        image: gregwell/nodechatnuevo
+        ports:
+        - containerPort: 3000
+```
